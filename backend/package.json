@@ -4,10 +4,6 @@
   "description": "I am Don't Know",
   "main": "index.js",
   "type": "module",
-  "scripts": {
-    "dev": "nodemon index.js",
-    "run": "node index.js"
-  },
   "keywords": [],
   "author": "",
   "license": "ISC",
