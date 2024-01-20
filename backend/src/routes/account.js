@@ -5,10 +5,10 @@ const router = express.Router();
 
 //***Query the sign-up ifo into the table if the mail id and username doesn't already exist***
 
-router.post("/signup", (req, res) => {
+router.post("/signup", async(req, res) => {
   const { uName, mail, pWd } = req.body;
-  const isInDatabase = checkDatabase(uName, mail);
-  // console.log(isInDatabase)
+  const isInDatabase = await checkDatabase(uName, mail);
+  console.log(isInDatabase)
   if (isInDatabase) {
     res.json({ status: 'already_present' });
   } else {
