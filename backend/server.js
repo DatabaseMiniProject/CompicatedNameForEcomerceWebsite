@@ -1,9 +1,9 @@
 import express from 'express';
+const app=express();
 import pg from 'pg';
 import dotenv from 'dotenv';
 
 dotenv.config();
-const app=express();
 
 const db = new pg.Client({
     user:process.env.USER,
