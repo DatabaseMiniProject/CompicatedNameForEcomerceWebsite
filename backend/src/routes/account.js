@@ -21,4 +21,4 @@ router.get("/wishlist/:id", (req, res) => {
   res.json({ res: `Wishlist of the user with id=${req.params.id}` });
 });
 
-module.exports=router;
+export default router;

@@ -9,4 +9,4 @@ router.post("/", (req, res) => {
   res.json({ res: "Subscribed to the news letter" });
 });
 
-module.exports=router;
+export default router;
