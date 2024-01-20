@@ -1,19 +1,19 @@
 import express from "express";
 const router = express.Router();
 
-router.post("/account/signup", (req, res) => {
+router.post("/signup", (req, res) => {
   res.json({ res: "Signup info recieved" });
-});
-
-router.get("/", (req, res) => {
-  res.json({ res: "My Account info" });
 });
 
 router.post("/login", (req, res) => {
   res.json({ res: "Login info recieved" });
 });
 
-router.get("/cart", (req, res) => {
+router.get("/", (req, res) => {
+  res.json({ res: "My Account info" });
+});
+
+router.get("/cart/:id", (req, res) => {
   res.json({ res: `Cart of the user with id=${req.params.id}` });
 });
 
