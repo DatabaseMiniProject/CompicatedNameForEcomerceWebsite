@@ -1,10 +1,9 @@
 import express from "express";
 import bcrypt from "bcryptjs";
-import { checkDatabase,insertIntoDatabase } from "../controller/db_query.js";
+import { checkDatabase,insertIntoDatabase,fetchCreds } from "../controller/db_query.js";
 const router = express.Router();
 
 //***Query the sign-up ifo into the table if the mail id and username doesn't already exist***
-
 router.post("/signup", async(req, res) => {
   const { uName, mail, pWd } = req.body;
   const isInDatabase = await checkDatabase(uName, mail);
@@ -19,8 +18,11 @@ router.post("/signup", async(req, res) => {
   }
 });
 
-router.post("/login", (req, res) => {
-  res.json({ res: "Login info recieved" });
+router.post("/login",async(req, res) => {
+  const {mail,pWd}=req.body;
+  const db_creds = await fetchCreds(mail);
+  const compare_hash=bcrypt.compareSync(pWd,db_creds.passhash);
+  res.json({ res: compare_hash });
 });
 
 router.get("/", (req, res) => {

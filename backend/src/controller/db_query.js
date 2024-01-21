@@ -1,6 +1,7 @@
 import { db_pool } from "../controller/db_config.js";
 import { v4 } from "uuid";
 
+//****Query to check if the username and mail already exists */
 const checkDatabase = async (uName, mail) => {
   try {
     const db = await db_pool.connect();
@@ -9,11 +10,12 @@ const checkDatabase = async (uName, mail) => {
     const res = await db.query(qry, [uName, mail]);
     db.release();
     return res.rows[0].exists;
-  } catch (err) { 
+  } catch (err) {
     console.log(err);
   }
 };
 
+//****Query to insert username pwd hash and mail into user table */
 const insertIntoDatabase = async (uName, mail, pHash) => {
   try {
     const db = await db_pool.connect();
@@ -28,4 +30,17 @@ const insertIntoDatabase = async (uName, mail, pHash) => {
   }
 };
 
-export { checkDatabase, insertIntoDatabase };
+//***Query fetches user id his password hash from the db using his mail */
+const fetchCreds = async (mail) => {
+  try {
+    const db = await db_pool.connect();
+    const qry = "select uid,name,passhash from user_table where email=$1";
+    const res = await db.query(qry, [mail]);
+    db.release();
+    return res.rows[0];
+  } catch (err) {
+    console.log(err);
+  }
+};
+
+export { checkDatabase, insertIntoDatabase, fetchCreds };
