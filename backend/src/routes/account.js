@@ -3,7 +3,7 @@ import bcrypt from "bcryptjs";
 import { checkDatabase,insertIntoDatabase,fetchCreds } from "../controller/db_query.js";
 const router = express.Router();
 
-//***Query the sign-up ifo into the table if the mail id and username doesn't already exist***
+//***Query the sign-up if into the table if the mail id and username doesn't already exist***
 router.post("/signup", async(req, res) => {
   const { uName, mail, pWd } = req.body;
   const isInDatabase = await checkDatabase(uName, mail);
@@ -18,6 +18,7 @@ router.post("/signup", async(req, res) => {
   }
 });
 
+//***Query the table and fetch the stored password hash and compare it with the hash of the entered password */
 router.post("/login",async(req, res) => {
   const {mail,pWd}=req.body;
   const db_creds = await fetchCreds(mail);
