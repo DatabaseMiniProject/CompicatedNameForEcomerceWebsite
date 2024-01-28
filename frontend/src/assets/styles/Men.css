@@ -1,0 +1,89 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins&display=swap');
+.main{
+    /* This is the whole page */
+    position: relative;
+    min-height: 100vh;
+    font-family: 'Poppins', sans-serif;
+}
+.row__men{
+    height: 100px;
+}
+.category_container{
+    height: 40%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-bottom: 3rem;
+}
+.category_sub_container{
+    height: 90%;
+    width: 90%;
+    display: grid;
+    grid-template-columns: auto auto auto;
+}
+.category{
+    height: 100%;
+    margin: auto 10px;
+}
+.category_links{
+    height: 100%;
+    width: 100%;
+}
+.category_links>img{
+    height: 260px;
+    border-radius: 10px;
+}
+.category_links{
+    text-decoration: none;
+    color: black;
+}
+.content_container{
+    width: 100%;   
+}
+.hidden_Filter{
+    visibility: hidden;
+}
+.expanded_sort{
+    width: 100%;
+    display: flex;
+    align-items: center;
+    position: relative;
+    margin-bottom: 3rem;
+}
+.sort_container_span{
+    position: absolute;
+    left: 2%;
+    display: flex;
+    align-items: center;
+}
+.sort_container_span>p{
+    padding-top: 5px;
+}
+.toggle_filter{
+    position: absolute;
+    right: 20%;
+    height: 2rem;
+    width: 6rem;
+    background-color: white;
+    border: none;
+}
+.sort_by{
+    position: absolute;
+    right: 5%;
+    height: 2rem;
+    width: 9rem;
+}
+.expanded_product{
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: white;
+    height: auto;
+}
+.product_sub-container{
+    width: 90%;
+    display: grid;
+    height: auto;
+    grid-template-columns: auto auto auto;
+}
