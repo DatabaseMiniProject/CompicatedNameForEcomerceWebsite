@@ -43,7 +43,13 @@ function Men() {
       <div className="content_container">
         {/* This is the left filter bar which can be toggled */}
         <div className={showFilter ? "filter_container" : "hidden_Filter"}>
-          Filters
+          <div>
+            <h1>Filter</h1>
+            <h1>Filter</h1>
+            <h1>Filter</h1>
+            <h1>Filter</h1>
+            <h1>Filter</h1>
+          </div>
         </div>
         {/* This is the top bar where sort by and the filter toggle is present */}
         <div className={showFilter ? "sort_container" : "expanded_sort"}>
@@ -68,21 +74,39 @@ function Men() {
         <div className={showFilter ? "product_container" : "expanded_product"}>
           <div className="product_sub-container">
             <Card />
-            <Card/>
-            <Card/>
-            <Card/>
+            <Card />
+            <Card />
+            <Card />
           </div>
         </div>
       </div>
+      <div className="loaded_and_load_more LoadMore_hidden">
+        <div>
+          <p>you have viewed 18 of 509 items</p>
+          <button className="LoadMore" type="button">
+            Load More
+          </button>
+        </div>
+      </div>
       <div className="bottom_message">
-        <h1>Men’s Sneakers and Athletic Wear</h1>
-        <p>
-          Step up and step out. New Balance sneakers for men help you find your
-          stride everywhere, from the street to the field to the track. Whether
-          you need shoes for everyday use or are looking for athletic wear for
-          the new season, we’ve got your covered. Browse our men’s running gear
-          and get ready to race.
-        </p>
+        <div>
+          <h1>Men’s Sneakers and Athletic Wear</h1>
+          <p>
+            Step up and step out. New Balance sneakers for men help you find
+            your stride everywhere, from the street to the field to the track.
+            Whether you need shoes for everyday use or are looking for athletic
+            wear for the new season, we’ve got your covered. Browse our men’s
+            running gear and get ready to race.
+          </p>
+        </div>
+      </div>
+      <div className="signup_prompt">
+        <div>
+          <p>Be the first to know about new arrivals</p>
+          <button type="button" className="sign_up">
+            Sign up
+          </button>
+        </div>
       </div>
     </div>
   );
