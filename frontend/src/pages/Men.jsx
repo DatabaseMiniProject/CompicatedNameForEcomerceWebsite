@@ -11,9 +11,7 @@ function Men() {
       {/* spacer with the men name */}
       <div className="row__men">
         <div className="row__men__full-width">
-          <ol className="spacer_men">
-            <li className="spacer_men_item">Men</li>
-          </ol>
+          <h2>Men</h2>
         </div>
       </div>
       {/* The category banner with links */}
