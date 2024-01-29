@@ -38,52 +38,56 @@ function Men() {
         </div>
       </div>
       {/* This houses the sort by bar, filter and the shoe list */}
-      <div className={showFilter?"new_content_container":"content_container"}>
-        {/* This is the left filter bar which can be toggled */}
-        <div className={showFilter ? "filter_container" : "hidden_Filter"}>
+      <div className="filter_category_product">
+        <div className={showFilter ? "filter_div" : "hidden_filter"}>
+          <h1>Filters</h1>
           <div>
-            <h1>Filter</h1>
-            <h1>Filter</h1>
-            <h1>Filter</h1>
-            <h1>Filter</h1>
-            <h1>Filter</h1>
+            <h1>Filter 1</h1>
+            <h1>Filter 2</h1>
+            <h1>Filter 3</h1>
+            <h1>Filter 4</h1>
+            <h1>Filter 5</h1>
+            <h1>Filter 6</h1>
+            <h1>Filter 7</h1>
           </div>
         </div>
-        {/* This is the top bar where sort by and the filter toggle is present */}
-        <div className={showFilter ? "sort_container" : "expanded_sort"}>
-          <span className="sort_container_span">
-            <h1 className="Category__count">Men</h1>
-            <p>(509)</p>
-          </span>
-          <button
-            className={showFilter?"small_toggle_filter": "toggle_filter"}
-            onClick={() => setShowFilter((showFilter) => !showFilter)}
-            type="button"
-          >
-            show filter
-          </button>
-          <select className="sort_by">
-            <option>New</option>
-            <option>prize high to low</option>
-            <option>price low to high</option>
-          </select>
+        <div className={showFilter ? "sort_by_container" : "expanded_sort_by"}>
+          <div>
+            <span className="sort_container_span">
+              <h1 className="Category__count">Men</h1>
+              <p>(509)</p>
+            </span>
+            <button
+              className="toggle_filter"
+              onClick={() => setShowFilter((showFilter) => !showFilter)}
+              type="button"
+            >
+              show filter
+            </button>
+            <select className="sort_by">
+              <option>New</option>
+              <option>prize high to low</option>
+              <option>price low to high</option>
+            </select>
+          </div>
         </div>
-        {/* This div has all the products */}
-        <div className={showFilter ? "product_container" : "expanded_product"}>
-          <div className="product_sub-container">
+        <div className={showFilter ? "product_container" : "expanded_products"}>
+          <div>
+            <Card />
+            <Card />
             <Card />
             <Card />
             <Card />
             <Card />
           </div>
-        </div>
-      </div>
-      <div className="loaded_and_load_more LoadMore_hidden">
-        <div>
-          <p>you have viewed 18 of 509 items</p>
-          <button className="LoadMore" type="button">
-            Load More
-          </button>
+          <div className="loaded_and_load_more LoadMore_hidden">
+            <div>
+              <p>you have viewed 18 of 509 items</p>
+              <button className="LoadMore" type="button">
+                Load More
+              </button>
+            </div>
+          </div>
         </div>
       </div>
       <div className="bottom_message">
