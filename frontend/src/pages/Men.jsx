@@ -79,6 +79,8 @@ function Men() {
             <Card />
             <Card />
             <Card />
+            <Card/>
+            <Card/>
           </div>
           <div className="loaded_and_load_more LoadMore_hidden">
             <div>

@@ -81,6 +81,7 @@
 }
 .filter_category_product{
     display: grid;
+    position: relative;
     grid-template-columns: 250px auto;
     grid-template-rows: 75px auto;
     margin-bottom: 20px;
@@ -94,6 +95,10 @@
     display: flex;
     justify-content: center;
     align-items: center;
+    position: sticky;
+    left: 0px;
+    top: 0px;
+    height: 100vh;
     flex-direction: column;
 }
 .filter_div>div{
