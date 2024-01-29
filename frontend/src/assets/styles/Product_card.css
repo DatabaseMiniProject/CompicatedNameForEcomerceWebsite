@@ -1,5 +1,5 @@
 .product_tile{
-    height: 500px;
+    height: 100%;
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -9,13 +9,14 @@
     width: 360px;
 }
 .image_div{
+    height: 80%;
     flex-basis: 80%;
     display: flex;
     align-items: center;
     justify-content: center;
 }
 .image_div>img{
-    height:  350px;
+    height:  100%;
     width: 95%;
 }
 .product_desc{
@@ -31,14 +32,14 @@
 }
 .product_category>p{
     position: absolute;
-    left: 20px;
-    bottom: 40px;
+    left: 35px;
+    bottom: 35px;
 }
 #prod_name{
     position: absolute;
-    left: 20px;
+    left: 35px;
 }
 #prod_price{
     position: absolute;
-    right: 20px;
+    right: 35px;
 }

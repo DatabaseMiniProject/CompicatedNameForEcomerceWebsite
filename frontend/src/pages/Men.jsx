@@ -38,7 +38,7 @@ function Men() {
         </div>
       </div>
       {/* This houses the sort by bar, filter and the shoe list */}
-      <div className="content_container">
+      <div className={showFilter?"new_content_container":"content_container"}>
         {/* This is the left filter bar which can be toggled */}
         <div className={showFilter ? "filter_container" : "hidden_Filter"}>
           <div>
@@ -56,7 +56,7 @@ function Men() {
             <p>(509)</p>
           </span>
           <button
-            className="toggle_filter"
+            className={showFilter?"small_toggle_filter": "toggle_filter"}
             onClick={() => setShowFilter((showFilter) => !showFilter)}
             type="button"
           >
