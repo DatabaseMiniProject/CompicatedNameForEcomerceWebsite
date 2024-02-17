@@ -1,0 +1,36 @@
+.cards{
+    height: 100px;
+}
+.cart_page{
+    min-height: 100vh;
+    display: grid;
+    place-items: center;
+}
+.spacer{
+    height: 50px;
+}
+.cart_sub-container{
+    position: relative;
+    width: 96%;
+    min-height: 80%;
+    display: grid;
+    grid-template-columns: 60% 40%;
+}
+.cartHeader{
+    height: 50px;
+    padding-left: 2%;
+    font-size: 1.5rem; 
+}
+.left-container .spacer{
+    height: 75px;
+}
+.right-container{
+    height: 100%;
+    position: relative;
+}
+.right-sub-container{
+    position: sticky;
+    top: 0px;
+    height: 550px;
+    background-color: #f6f6f6;
+}
