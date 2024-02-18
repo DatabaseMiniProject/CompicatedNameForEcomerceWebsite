@@ -31,6 +31,41 @@
 .right-sub-container{
     position: sticky;
     top: 0px;
-    height: 550px;
+    height: 450px;
     background-color: #f6f6f6;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.right-sub-sub-container h1{
+    font-size: 1.7rem;
+    margin-bottom: 10%;
+}
+.right-sub-sub-container{
+    height: 75%;
+    width: 80%;
+}
+.right-sub-sub-container p{
+    width: 100%;
+    font-size: 1.2rem;
+    position: relative;
+    margin: 1rem auto;
+}
+.right-sub-sub-container p span{
+    position: absolute;
+    right: 4%;
+}
+.button-container{
+    width: 100%;
+    display: grid;
+    place-items: center;
+    margin-top: 4.5rem;
+}
+.checkOut{
+    color: white;
+    font-size: 0.9rem;
+    border: none;
+    background-color: #cf0a2c;
+    width: 80%;
+    height: 3rem;
 }

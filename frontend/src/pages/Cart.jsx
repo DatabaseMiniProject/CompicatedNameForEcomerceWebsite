@@ -1,27 +1,48 @@
-import React from 'react'
-import '../assets/styles/Cart.css'
+import React from "react";
+import "../assets/styles/Cart.css";
 function Cart() {
   return (
-    <div className='cart_page'>
-    <div className='cart_sub-container'>
-    <div className='left-container'>
-    <div className='spacer'></div>
-      <h1 className='cartHeader'>My Cart</h1>
-      <div className='cards'>Item1</div>
-      <div className='cards'>Item1</div>
-      <div className='cards'>Item1</div>
-      <div className='cards'>Item1</div>
-      <div className='cards'>Item1</div>
-      <div className='cards'>Item1</div>
-      <div className='cards'>Item1</div><div className='cards'>Item1</div>
-      <div className='cards'>Item1</div><div className='cards'>Item1</div><div className='cards'>Item1</div><div className='cards'>Item1</div>
+    <div className="cart_page">
+      <div className="cart_sub-container">
+        <div className="left-container">
+          <div className="spacer"></div>
+          <h1 className="cartHeader">My Cart</h1>
+          <div className="cards">Item1</div>
+          <div className="cards">Item1</div>
+          <div className="cards">Item1</div>
+          <div className="cards">Item1</div>
+          <div className="cards">Item1</div>
+          <div className="cards">Item1</div>
+          <div className="cards">Item1</div>
+          <div className="cards">Item1</div>
+          <div className="cards">Item1</div>
+          <div className="cards">Item1</div>
+          <div className="cards">Item1</div>
+          <div className="cards">Item1</div>
+        </div>
+        <div className="right-container">
+          <div className="spacer"></div>
+          <div className="right-sub-container">
+            <div className="right-sub-sub-container">
+              <h1>Order Summary</h1>
+              <p className="subTotal">
+                Sub Total <span>$215</span>
+              </p>
+              <p className="shippingFees">
+                Shipping <span>Free</span>
+              </p>
+              <p className="orderTotal">
+                Order Total<span>$215</span>
+              </p>
+              <div className="button-container">
+                <button className="checkOut" type="button">Checkout</button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
     </div>
-    <div className='right-container'>
-    <div className='spacer'></div>
-    <div className='right-sub-container'>Right</div></div>
-    </div>
-    </div>
-  )
+  );
 }
 
-export default Cart
+export default Cart;
