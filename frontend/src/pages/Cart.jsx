@@ -1,4 +1,5 @@
 import React from "react";
+import CartTile from "../Components/CartTile";
 import "../assets/styles/Cart.css";
 function Cart() {
   return (
@@ -7,18 +8,10 @@ function Cart() {
         <div className="left-container">
           <div className="spacer"></div>
           <h1 className="cartHeader">My Cart</h1>
-          <div className="cards">Item1</div>
-          <div className="cards">Item1</div>
-          <div className="cards">Item1</div>
-          <div className="cards">Item1</div>
-          <div className="cards">Item1</div>
-          <div className="cards">Item1</div>
-          <div className="cards">Item1</div>
-          <div className="cards">Item1</div>
-          <div className="cards">Item1</div>
-          <div className="cards">Item1</div>
-          <div className="cards">Item1</div>
-          <div className="cards">Item1</div>
+          <CartTile/>
+          <CartTile/>
+          <CartTile/>
+          <CartTile/>
         </div>
         <div className="right-container">
           <div className="spacer"></div>

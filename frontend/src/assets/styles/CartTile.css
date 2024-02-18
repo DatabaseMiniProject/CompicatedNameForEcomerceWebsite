@@ -1,0 +1,41 @@
+.cards{
+    width: 95%;
+    position: relative;
+    height: 200px;
+    margin-bottom: 5px;
+}
+.cartTile-image{
+    position: absolute;
+    height: 190px;
+    width: 190px;
+    top: 5px;
+    left: 5px;
+}
+.cart-options{
+    position: absolute;
+    top: 15px;
+    left: 220px;
+}
+.cart-options a{
+    color: black;
+}
+.cart-options span{
+    margin-left: 2rem;
+}
+.deleteItem{
+    position: absolute;
+    top: 5px;
+    right: 5px;
+    text-decoration: underline;
+}
+.deleteItem:hover{
+    cursor: pointer;
+    color: #cf0a2c;
+    transition: all 5ms;
+}
+.prodDetails{
+    margin-top: 1.1rem;
+}
+.pCategory,.prodDetails p{
+    font-size: 0.8rem;
+}
