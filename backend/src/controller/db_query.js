@@ -43,4 +43,16 @@ const fetchCreds = async (mail) => {
   }
 };
 
-export { checkDatabase, insertIntoDatabase, fetchCreds };
+const getItemsByCategory = async (categoryName) => {
+  try {
+    const db = await db_pool.connect();
+    const qry = "select * from  products where category=$1";
+    const res = await db.query(qry, [categoryName]);
+    db.release();
+    return res.rows;
+  } catch (err) {
+    console.log(err);
+  }
+};
+
+export { checkDatabase, insertIntoDatabase, fetchCreds , getItemsByCategory };
