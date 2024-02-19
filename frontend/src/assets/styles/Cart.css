@@ -67,3 +67,8 @@
     width: 80%;
     height: 3rem;
 }
+.checkOut:hover{
+    background-color: #a60822;
+    cursor: pointer;
+    transition: all 0.5ms;
+}

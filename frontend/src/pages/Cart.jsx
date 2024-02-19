@@ -12,6 +12,7 @@ function Cart() {
           <CartTile/>
           <CartTile/>
           <CartTile/>
+          <CartTile/>
         </div>
         <div className="right-container">
           <div className="spacer"></div>
