@@ -8,6 +8,7 @@ import accessoriesCategoryLogo from "../assets/Images/categoryAccessoriesLogo.jp
 import { useState } from "react";
 function Men() {
   const [showFilter, setShowFilter] = useState(false);
+  const [prodDesc,setProdDesc]=useState({})
   const [items,setItems] = useState([])
   useEffect(()=>{
     axios.get('http://localhost:4000/men').then(res=>setItems(res.data.items))
@@ -18,7 +19,7 @@ function Men() {
       <div className="row__men">
         <div className="row__men__full-width">
           <h2>Men</h2>
-        </div>
+        </div> 
       </div>
       {/* The category banner with links */}
       <div className="category_container">
@@ -80,7 +81,7 @@ function Men() {
         <div className={showFilter ? "product_container" : "expanded_products"}>
           <div>
            {items.map((item,ind)=>{
-            return <Card key={ind} url={item.imageurl} name={item.name} price={item.price} category={item.category} />
+            return <Card key={ind} setDesc={setProdDesc} url={item.imageurl} desc={item.desc} name={item.name} price={item.price} category={item.category} />
            })}
           </div>
           <div className="loaded_and_load_more LoadMore_hidden">
