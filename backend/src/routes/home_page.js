@@ -10,8 +10,8 @@ router.post("/", (req, res) => {
   res.json({ res: "Subscribed to the news letter" });
 });
 
-router.get('/men',async(req,res)=>{
-    const mens_items = await getItemsByCategory('men');
+router.get('/:category',async(req,res)=>{
+    const mens_items = await getItemsByCategory(req.params.category);
     res.json({items:mens_items})
 })
 
