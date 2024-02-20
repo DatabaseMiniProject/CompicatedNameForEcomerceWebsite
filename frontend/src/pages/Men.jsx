@@ -8,19 +8,27 @@ import accessoriesCategoryLogo from "../assets/Images/categoryAccessoriesLogo.jp
 import { useState } from "react";
 function Men() {
   const [showFilter, setShowFilter] = useState(false);
+<<<<<<< HEAD
   const [items, setItems] = useState([]);
   useEffect(() => {
     axios
       .get("http://localhost:4000/men")
       .then((res) => setItems(res.data.items));
   }, []);
+=======
+  const [prodDesc,setProdDesc]=useState({})
+  const [items,setItems] = useState([])
+  useEffect(()=>{
+    axios.get('http://localhost:4000/men').then(res=>setItems(res.data.items))
+  },[])
+>>>>>>> e765f8baef90082202ab64a02024ab528768363b
   return (
     <div className="main">
       {/* spacer with the men name */}
       <div className="row__men">
         <div className="row__men__full-width">
           <h2>Men</h2>
-        </div>
+        </div> 
       </div>
       {/* The category banner with links */}
       <div className="category_container">
@@ -81,6 +89,7 @@ function Men() {
         </div>
         <div className={showFilter ? "product_container" : "expanded_products"}>
           <div>
+<<<<<<< HEAD
             {items.map((item, ind) => {
               return (
                 <Card
@@ -92,6 +101,11 @@ function Men() {
                 />
               );
             })}
+=======
+           {items.map((item,ind)=>{
+            return <Card key={ind} setDesc={setProdDesc} url={item.imageurl} desc={item.desc} name={item.name} price={item.price} category={item.category} />
+           })}
+>>>>>>> e765f8baef90082202ab64a02024ab528768363b
           </div>
           <div className="loaded_and_load_more LoadMore_hidden">
             <div>
