@@ -20,10 +20,12 @@ router.post("/signup", async(req, res) => {
 
 //***Query the table and fetch the stored password hash and compare it with the hash of the entered password */
 router.post("/login",async(req, res) => {
-  const {mail,pWd}=req.body;
-  const db_creds = await fetchCreds(mail);
-  const compare_hash=bcrypt.compareSync(pWd,db_creds.passhash);
+  const {email,password}=req.body;
+  const db_creds = await fetchCreds(email);
+  if(db_creds!==undefined){
+  const compare_hash=bcrypt.compareSync(password,db_creds.passhash);
   res.json({ res: compare_hash });
+  }
 });
 
 router.get("/", (req, res) => {

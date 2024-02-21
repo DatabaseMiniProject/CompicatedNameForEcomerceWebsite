@@ -1,20 +1,22 @@
 import "../assets/styles/Men.css";
 import { useEffect } from "react";
 import axios from 'axios'
-import Card from "../Components/ProductTile";
+import Card from "../Components/ProductCard";
 import categoryShoeLogo from "../assets/Images/shoeCategory.jpg";
 import clothingCategoryLogo from "../assets/Images/clothingCategory.jpg";
 import accessoriesCategoryLogo from "../assets/Images/categoryAccessoriesLogo.jpg";
 import { useState } from "react";
+import Header from "../Components/Header";
 function Men() {
   const [showFilter, setShowFilter] = useState(false);
-  const [prodDesc,setProdDesc]=useState({})
   const [items,setItems] = useState([])
   useEffect(()=>{
     axios.get('http://localhost:4000/men').then(res=>setItems(res.data.items))
   },[])
   return (
     <div className="main">
+    <Header/>
+    <div className="spacer"></div>
       {/* spacer with the men name */}
       <div className="row__men">
         <div className="row__men__full-width">
@@ -81,7 +83,8 @@ function Men() {
         <div className={showFilter ? "product_container" : "expanded_products"}>
           <div>
            {items.map((item,ind)=>{
-            return <Card key={ind} setDesc={setProdDesc} url={item.imageurl} desc={item.desc} name={item.name} price={item.price} category={item.category} />
+            const prod = {link:"/products/"+item.name, image:item.imageurl,  title:item.name, price:item.price, category:item.category}
+            return <Card key={ind} product={prod} />
            })}
           </div>
           <div className="loaded_and_load_more LoadMore_hidden">

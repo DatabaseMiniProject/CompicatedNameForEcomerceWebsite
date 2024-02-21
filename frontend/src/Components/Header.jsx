@@ -14,7 +14,7 @@ const Header = () => {
         </Link>
       </div>
       <div className="links">
-        <Dropdown
+        {/* <Dropdown
           linkText="New"
           dropdownItems={[
             { href: "/new-arrivals", text: "New Arrivals" },
@@ -52,7 +52,10 @@ const Header = () => {
             { href: "/sale-clothing", text: "Sale Clothing" },
             { href: "/sale-shoes", text: "Sale Shoes" },
           ]}
-        />
+        /> */}
+        <Link className="dropdown-wrapper" to="/men">Men</Link>
+        <Link className="dropdown-wrapper" to="/women">Women</Link>
+        <Link className="dropdown-wrapper" to="/kids">Kids</Link>
       </div>
       <div className="search-wrapper">
         <input type="text" placeholder="Search" className="search-input" />
