@@ -4,6 +4,7 @@ import Men from "./Men";
 import Cart from "./Cart";
 import Login from "./Login";
 import Register from "./Register";
+import ProductPage from "./ProductPage";
 
 function App() {
   return (
@@ -13,6 +14,7 @@ function App() {
       <Route path="/register" element={<Register />} />
       <Route path="/men" Component={Men} />
       <Route path="/cart" Component={Cart} />
+      <Route path="/product" Component={ProductPage}/>
     </Routes>
   );
 }
