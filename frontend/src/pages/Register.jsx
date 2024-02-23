@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import { Link } from "react-router-dom";
+import axios from 'axios'
 import Header from "../Components/Header";
 import Footer from "../Components/Footer";
 import "../assets/styles/Register.css";
@@ -20,7 +21,10 @@ const Register = () => {
   const handleSubmit = (e) => {
     e.preventDefault();
     // Add your register logic here
-    console.log("Register form submitted:", formData);
+    if(password===confirmPassword&&password!==null){
+    axios.post('http://localhost:4000/account/signup',{formData}).then(res=>console.log(res.data))
+    }
+    // console.log("Register form submitted:", formData);
   };
 
   return (

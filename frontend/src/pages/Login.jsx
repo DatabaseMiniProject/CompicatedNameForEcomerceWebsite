@@ -20,7 +20,7 @@ const Login = () => {
   const handleSubmit = (e) => {
     e.preventDefault();
     // Add your login logic here
-    axios.post('http://localhost:4000/account/login',formData).then(res=>console.log)
+    axios.post('http://localhost:4000/account/login',formData).then(res=>console.log(res.data))
     // console.log("Login form submitted:", formData);
   };
 

@@ -7,6 +7,7 @@ import clothingCategoryLogo from "../assets/Images/clothingCategory.jpg";
 import accessoriesCategoryLogo from "../assets/Images/categoryAccessoriesLogo.jpg";
 import { useState } from "react";
 import Header from "../Components/Header";
+import Footer from "../Components/Footer";
 function Men() {
   const [showFilter, setShowFilter] = useState(false);
   const [items,setItems] = useState([])
@@ -117,6 +118,7 @@ function Men() {
           </button>
         </div>
       </div>
+      <Footer/>
     </div>
   );
 }

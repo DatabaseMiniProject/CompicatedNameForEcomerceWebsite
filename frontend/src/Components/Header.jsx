@@ -1,4 +1,4 @@
-import Dropdown from "./Dropdown";
+// import Dropdown from "./Dropdown";
 import { Link } from "react-router-dom";
 import "../assets/styles/Header.css";
 // Icons

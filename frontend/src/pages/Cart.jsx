@@ -1,9 +1,13 @@
 import React from "react";
 import CartTile from "../Components/CartTile";
 import "../assets/styles/Cart.css";
+import Header from "../Components/Header";
+import Footer from "../Components/Footer";
 function Cart() {
   return (
     <div className="cart_page">
+    <Header/>
+    <div className="spacer"></div>
       <div className="cart_sub-container">
         <div className="left-container">
           <div className="spacer"></div>
@@ -35,6 +39,8 @@ function Cart() {
           </div>
         </div>
       </div>
+      <div className="spacer"></div>
+      <Footer/>
     </div>
   );
 }
