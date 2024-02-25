@@ -12,7 +12,9 @@ function Men() {
   const [showFilter, setShowFilter] = useState(false);
   const [items,setItems] = useState([])
   useEffect(()=>{
-    axios.get('http://localhost:4000/men').then(res=>setItems(res.data.items))
+    // console.log('Calling /men path')
+    axios.get('http://localhost:4000/men')
+    .then(res=>{setItems(res.data.items)})
   },[])
   return (
     <div className="main">
@@ -84,7 +86,7 @@ function Men() {
         <div className={showFilter ? "product_container" : "expanded_products"}>
           <div>
            {items.map((item,ind)=>{
-            const prod = {link:"/products/"+item.name, image:item.imageurl,  title:item.name, price:item.price, category:item.category}
+            const prod = {link:"/products/"+item.product_name, image:item.image1,  title:item.product_name, price:item.product_cost, category:item.category_name}
             return <Card key={ind} product={prod} />
            })}
           </div>

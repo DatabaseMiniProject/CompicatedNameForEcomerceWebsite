@@ -9,25 +9,28 @@ const router = express.Router();
 
 //***Query the sign-up if into the table if the mail id and username doesn't already exist***
 router.post("/signup", async (req, res) => {
-  const { uName, mail, pWd } = req.body;
-  const isInDatabase = await checkDatabase(uName, mail);
+  const { username,password,email } = req.body.packet;
+  // console.log(username,email,password)
+  const isInDatabase = await checkDatabase(username, email);
+  // console.log(isInDatabase);
   if (isInDatabase) {
-    res.json({ status: "already_present" });
+    res.json({ status: true });
   } else {
     const salt = bcrypt.genSaltSync();
-    const pHash = bcrypt.hashSync(pWd, salt);
-    const insert = await insertIntoDatabase(uName, mail, pHash);
-    if (insert.rowCount) res.status(200).json({ status: "registered" });
-    else res.status(500).json({ status: "try_again" });
+    const pHash = bcrypt.hashSync(password, salt);
+    const insert = await insertIntoDatabase(username, email, pHash);
+    if (insert.rowCount) res.status(200).json({ status: true });
+    else res.status(500).json({ status: false });
   }
 });
 
 //***Query the table and fetch the stored password hash and compare it with the hash of the entered password */
 router.post("/login", async (req, res) => {
-  const { email, password } = req.body;
+  const {email,password}=req.body
   const db_creds = await fetchCreds(email);
-  if (db_creds !== undefined) {
-    const compare_hash = bcrypt.compareSync(password, db_creds.passhash);
+  // console.log(db_creds)
+  if (db_creds.user_id !== undefined) {
+    const compare_hash = bcrypt.compareSync(password, db_creds.user_password_hash);
     res.json({ res: compare_hash });
   }
 });
