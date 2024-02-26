@@ -4,6 +4,7 @@ import {
   checkDatabase,
   insertIntoDatabase,
   fetchCreds,
+  fetchCartItems
 } from "../controller/db_query.js";
 const router = express.Router();
 
@@ -40,6 +41,7 @@ router.get("/", (req, res) => {
 });
 
 router.get("/cart/:id", async (req, res) => {
+  console.log(req.params.id)
   const cart_items = await fetchCartItems(req.params.id);
   if (cart_items.length !== 0) res.json({ res: cart_items });
   else res.json({ res: ["no items in the cart"] });

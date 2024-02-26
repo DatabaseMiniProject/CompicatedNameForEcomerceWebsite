@@ -2,7 +2,6 @@ import "../assets/styles/ProductCard.css";
 
 const ProductCard = ({ product }) => {
   const { image, title, price, link } = product;
-
   return (
     <div className="product-card">
       <a href={link} className="card-link">

@@ -14,7 +14,7 @@ function App() {
       <Route path="/register" element={<Register />} />
       <Route path="/men" Component={Men} />
       <Route path="/cart" Component={Cart} />
-      <Route path="/product" Component={ProductPage}/>
+      <Route path="/products/:id" Component={ProductPage}/>
     </Routes>
   );
 }

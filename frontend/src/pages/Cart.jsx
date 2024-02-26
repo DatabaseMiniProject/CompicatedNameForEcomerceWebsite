@@ -1,9 +1,14 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import CartTile from "../Components/CartTile";
 import "../assets/styles/Cart.css";
 import Header from "../Components/Header";
 import Footer from "../Components/Footer";
+import axios from "axios";
 function Cart() {
+  const [cartItems,setCartItems]=useState([]);
+  useEffect(()=>{
+    axios.get('http://localhost:4000/account/cart/C').then(res=>setCartItems(res.data.res))
+  },[])
   return (
     <div className="cart_page">
     <Header/>
@@ -12,11 +17,9 @@ function Cart() {
         <div className="left-container">
           <div className="spacer"></div>
           <h1 className="cartHeader">My Cart</h1>
-          <CartTile/>
-          <CartTile/>
-          <CartTile/>
-          <CartTile/>
-          <CartTile/>
+          {cartItems.map((item,key)=>{
+            return <CartTile key={key} item={item}/>
+          })}
         </div>
         <div className="right-container">
           <div className="spacer"></div>

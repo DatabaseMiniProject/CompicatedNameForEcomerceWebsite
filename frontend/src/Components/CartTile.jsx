@@ -1,22 +1,23 @@
 import "../assets/styles/CartTile.css";
-import sockImage from "../assets/Images/socks_test.jpeg";
-function CartTile() {
+// import sockImage from "../assets/Images/socks_test.jpeg";
+function CartTile({item}) {
+  const {product_name,product_size,qty,total_price,image1} = item;
   return (
     <div className="cards">
       <div className="cart-image-container">
         <a href="/">
-          <img className="cartTile-image" src={sockImage} alt="cartItem" />
+          <img className="cartTile-image" src={image1} alt="cartItem" />
         </a>
       </div>
       <div className="cart-options">
-        <a href="/">Product Name</a>
-        <span>$15.22</span>
+        <a href="/">{product_name}</a>
+        <span>${total_price}</span>
           <p className="pCategory">unisex</p>
         <div className="prodDetails">
           <p className="pColor">color: white</p>
-          <p className="size">size: L</p>
+          <p className="size">size: {product_size}</p>
           <p className="qty">
-            qty:
+            qty:{qty}<p style={{display:"inline",marginLeft:"0.5rem"}}></p>
             <select>
               <option value="1">1</option>
               <option value="2">2</option>
