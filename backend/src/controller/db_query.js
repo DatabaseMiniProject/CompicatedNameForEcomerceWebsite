@@ -72,21 +72,67 @@ const fetchCartItems = async (username) => {
   }
 };
 
-const getItemsInfo = async (itemName) => {
+const getImages = async (itemName) => {
   try {
     const db = await db_pool.connect();
-    const qry = ' select pt.product_name,ct.category_name,ct1.category_name as parent_category_name,pt.product_cost,pt.product_description from products_table pt,filter_category_table fct,category_table ct,category_table ct1 where pt.product_id=fct.product_id and ct.category_id=fct.category_id and ct1.category_id=fct.parent_category_id and pt.product_name=$1;'
-    const prod_details = await db.query(qry,[itemName]);
-    const imgQry = 'select it.image1,it.image2,it.image3 from image_table it,products_table pt where pt.product_id=it.product_id and pt.product_name=$1'
-    const prod_images = await db.query(imgQry,[itemName])
-    const sizQry='select st.product_size from size_table st,products_table pt where st.product_id=pt.product_id and pt.product_name=$1'
-    const prod_sizes=await db.query(sizQry,[itemName])
-      db.release();
-    return {details:prod_details.rows,images:prod_images.rows,sizes:prod_sizes.rows}
+    const imgQry =
+      "select it.image1,it.image2,it.image3 from image_table it,products_table pt where pt.product_id=it.product_id and pt.product_name=$1";
+    const prod_images = await db.query(imgQry, [itemName]);
+    const images = [];
+    db.release();
+    Object.values(prod_images.rows[0]).forEach((value) => images.push(value));
+    return images;
   } catch (err) {
     console.log(err);
   }
 };
+
+const getSizes = async (itemName) => {
+  try {
+    const db = await db_pool.connect();
+    const sizQry =
+      "select st.product_size from size_table st,products_table pt where st.product_id=pt.product_id and pt.product_name=$1";
+    const prod_sizes = await db.query(sizQry, [itemName]);
+    db.release();
+    const sizes = [];
+    prod_sizes.rows.forEach((item) => sizes.push(item.product_size));
+    return sizes;
+  } catch (err) {
+    console.log(err);
+  }
+};
+
+const getItemsInfo = async (itemName) => {
+  try {
+    const db = await db_pool.connect();
+    const qry =
+      " select pt.product_name,ct.category_name,ct1.category_name as parent_category_name,pt.product_cost,pt.product_description from products_table pt,filter_category_table fct,category_table ct,category_table ct1 where pt.product_id=fct.product_id and ct.category_id=fct.category_id and ct1.category_id=fct.parent_category_id and pt.product_name=$1;";
+    const prod_details = await db.query(qry, [itemName]);
+    db.release();
+    return prod_details.rows[0];
+  } catch (err) {
+    console.log(err);
+  }
+};
+
+const insertIntoCart =async (user_id,name,qty,size)=>{
+  try{
+    const db = await db_pool.connect();
+    const fetch_product_id = "select pt.product_id from products_table pt where product_name=$1";
+    const res = (await db.query(fetch_product_id,[name])).rows[0];
+    const cost =(await db.query('select pt.product_cost from products_table pt where product_id=$1',[res.product_id])).rows[0].product_cost;
+    console.log(typeof(size),size)
+    const total_cost = qty*cost 
+    const qry = "insert into cart_table values($1,$2,$3,$4,$5)";
+    const result = await db.query(qry,[user_id,res.product_id,size,qty,total_cost])
+    db.release()
+    if(result.rowCount===1) return true
+    else return false
+  }
+  catch(err){
+    console.log(err)
+  }
+}
 
 export {
   checkDatabase,
@@ -94,5 +140,8 @@ export {
   fetchCreds,
   getItemsByCategory,
   fetchCartItems,
-  getItemsInfo
+  getItemsInfo,
+  getImages,
+  getSizes,
+  insertIntoCart
 };
