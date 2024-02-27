@@ -8,14 +8,15 @@ import accessoriesCategoryLogo from "../assets/Images/categoryAccessoriesLogo.jp
 import { useState } from "react";
 import Header from "../Components/Header";
 import Footer from "../Components/Footer";
-function Men() {
+function Men({category}) {
   const [showFilter, setShowFilter] = useState(false);
   const [items,setItems] = useState([])
+  const cName = category.charAt(0).toUpperCase()+category.substring(1,);
   useEffect(()=>{
     // console.log('Calling /men path')
-    axios.get('http://localhost:4000/men')
+    axios.get(`http://localhost:4000/${category}`)
     .then(res=>{setItems(res.data.items)})
-  },[])
+  },[category])
   return (
     <div className="main">
     <Header/>
@@ -23,7 +24,7 @@ function Men() {
       {/* spacer with the men name */}
       <div className="row__men">
         <div className="row__men__full-width">
-          <h2>Men</h2>
+          <h2>{cName}</h2>
         </div> 
       </div>
       {/* The category banner with links */}
@@ -66,8 +67,8 @@ function Men() {
         <div className={showFilter ? "sort_by_container" : "expanded_sort_by"}>
           <div>
             <span className="sort_container_span">
-              <h1 className="Category__count">Men</h1>
-              <p>(509)</p>
+              <h1 className="Category__count">{cName}</h1>
+              <p>({items.length})</p>
             </span>
             <button
               className="toggle_filter"
@@ -102,12 +103,12 @@ function Men() {
       </div>
       <div className="bottom_message">
         <div>
-          <h1>Men’s Sneakers and Athletic Wear</h1>
+          <h1>{cName}’s Sneakers and Athletic Wear</h1>
           <p>
-            Step up and step out. New Balance sneakers for men help you find
+            Step up and step out. New Balance sneakers for {cName} help you find
             your stride everywhere, from the street to the field to the track.
             Whether you need shoes for everyday use or are looking for athletic
-            wear for the new season, we’ve got your covered. Browse our men’s
+            wear for the new season, we’ve got your covered. Browse our {cName}’s
             running gear and get ready to race.
           </p>
         </div>

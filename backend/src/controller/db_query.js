@@ -121,7 +121,6 @@ const insertIntoCart =async (user_id,name,qty,size)=>{
     const fetch_product_id = "select pt.product_id from products_table pt where product_name=$1";
     const res = (await db.query(fetch_product_id,[name])).rows[0];
     const cost =(await db.query('select pt.product_cost from products_table pt where product_id=$1',[res.product_id])).rows[0].product_cost;
-    console.log(typeof(size),size)
     const total_cost = qty*cost 
     const qry = "insert into cart_table values($1,$2,$3,$4,$5)";
     const result = await db.query(qry,[user_id,res.product_id,size,qty,total_cost])

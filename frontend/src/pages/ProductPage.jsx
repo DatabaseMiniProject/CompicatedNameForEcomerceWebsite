@@ -16,7 +16,7 @@ function ProductPage() {
     axios.get(url).then(res=>{setProductInformation(res.data);setIsLoading(false)}).catch(err=>console.log(err))
   },[url])
   const handleCart = () =>{
-    axios.post(url,{qty:qty,size:prodSize}).then(res=>console.log(res)).catch(err=>console.log(err))
+    axios.post(url,{qty:qty,size:prodSize}).then(res=>console.log(res)).catch(err=>console.log(err))//Change console.log to setStatus for added successfully message
   }
   if(isLoading) return <h1>Loading.....</h1>
   return (
