@@ -49,15 +49,9 @@ const getItemsByCategory = async (categoryName) => {
   try {
     const db = await db_pool.connect();
     let qry, res;
-    if (categoryName === "all") {
-      qry =
-        "select * from products_table,image_table it,filter_category_table,category_table as ct where it.product_id=products_table.product_id and products_table.product_id=filter_category_table.product_id and filter_category_table.parent_category_id=ct.category_id";
-      res = await db.query(qry);
-    } else {
       qry =
         "select * from products_table,image_table it,filter_category_table,category_table as ct where it.product_id=products_table.product_id and products_table.product_id=filter_category_table.product_id and filter_category_table.parent_category_id=ct.category_id and ct.category_name=$1";
       res = await db.query(qry, [categoryName]);
-    }
     db.release();
     return res.rows;
     // console.log(res.rows)

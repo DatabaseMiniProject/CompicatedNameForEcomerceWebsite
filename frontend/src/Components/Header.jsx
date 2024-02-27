@@ -56,7 +56,7 @@ const Header = () => {
         <Link className="dropdown-wrapper" to="/">Home</Link>
         <Link className="dropdown-wrapper" to="/category/men">Men</Link>
         <Link className="dropdown-wrapper" to="/category/women">Women</Link>
-        <Link className="dropdown-wrapper" to="/category/all">Unisex</Link>
+        <Link className="dropdown-wrapper" to="/category/unisex">Unisex</Link>
       </div>
       <div className="search-wrapper">
         <input type="text" placeholder="Search" className="search-input" />

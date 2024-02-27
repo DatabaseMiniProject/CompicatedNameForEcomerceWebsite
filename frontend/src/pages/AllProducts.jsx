@@ -24,7 +24,7 @@ function Men({category}) {
       {/* spacer with the men name */}
       <div className="row__men">
         <div className="row__men__full-width">
-          <h2>{category==="all"?'Unisex':cName}</h2>
+          <h2>{cName}</h2>
         </div> 
       </div>
       {/* The category banner with links */}
@@ -67,7 +67,7 @@ function Men({category}) {
         <div className={showFilter ? "sort_by_container" : "expanded_sort_by"}>
           <div>
             <span className="sort_container_span">
-              <h1 className="Category__count">{category==="all"?'Unisex':cName}</h1>
+              <h1 className="Category__count">{cName}</h1>
               <p>({items.length})</p>
             </span>
             <button
@@ -103,12 +103,12 @@ function Men({category}) {
       </div>
       <div className="bottom_message">
         <div>
-          <h1>{category==="all"?'everyone':cName}’s Sneakers and Athletic Wear</h1>
+          <h1>{cName}’s Sneakers and Athletic Wear</h1>
           <p>
-            Step up and step out. New Balance sneakers for {category==="all"?'everyone':cName} help you find
+            Step up and step out. New Balance sneakers {category==="unisex"?'everyone':'for '+cName+" "} help you find
             your stride everywhere, from the street to the field to the track.
             Whether you need shoes for everyday use or are looking for athletic
-            wear for the new season, we’ve got your covered. Browse our {category==="all"?'everyone':cName}’s
+            wear for the new season, we’ve got your covered. Browse our {category==="unisex"?'':cName+'’s '}
             running gear and get ready to race.
           </p>
         </div>
