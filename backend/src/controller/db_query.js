@@ -48,11 +48,19 @@ const fetchCreds = async (mail) => {
 const getItemsByCategory = async (categoryName) => {
   try {
     const db = await db_pool.connect();
-    const qry =
-      "select * from products_table,image_table it,filter_category_table,category_table as ct where it.product_id=products_table.product_id and products_table.product_id=filter_category_table.product_id and filter_category_table.parent_category_id=ct.category_id and ct.category_name=$1";
-    const res = await db.query(qry, [categoryName]);
+    let qry,res;
+    if (categoryName === "all") {
+      qry =
+        "select * from products_table,image_table it,filter_category_table,category_table as ct where it.product_id=products_table.product_id and products_table.product_id=filter_category_table.product_id and filter_category_table.parent_category_id=ct.category_id";
+        res = await db.query(qry);
+      } else {
+      qry =
+        "select * from products_table,image_table it,filter_category_table,category_table as ct where it.product_id=products_table.product_id and products_table.product_id=filter_category_table.product_id and filter_category_table.parent_category_id=ct.category_id and ct.category_name=$1";
+        res = await db.query(qry, [categoryName]);
+      }
     db.release();
     return res.rows;
+    // console.log(res.rows)
   } catch (err) {
     console.log(err);
   }
@@ -115,18 +123,49 @@ const getItemsInfo = async (itemName) => {
   }
 };
 
-const insertIntoCart =async (user_id,name,qty,size)=>{
-  try{
+const insertIntoCart = async (user_id, name, qty, size) => {
+  try {
     const db = await db_pool.connect();
-    const fetch_product_id = "select pt.product_id from products_table pt where product_name=$1";
-    const res = (await db.query(fetch_product_id,[name])).rows[0];
-    const cost =(await db.query('select pt.product_cost from products_table pt where product_id=$1',[res.product_id])).rows[0].product_cost;
-    const total_cost = qty*cost 
+    const fetch_product_id =
+      "select pt.product_id from products_table pt where product_name=$1";
+    const res = (await db.query(fetch_product_id, [name])).rows[0];
+    const cost = (
+      await db.query(
+        "select pt.product_cost from products_table pt where product_id=$1",
+        [res.product_id]
+      )
+    ).rows[0].product_cost;
+    const total_cost = qty * cost;
     const qry = "insert into cart_table values($1,$2,$3,$4,$5)";
-    const result = await db.query(qry,[user_id,res.product_id,size,qty,total_cost])
+    const result = await db.query(qry, [
+      user_id,
+      res.product_id,
+      size,
+      qty,
+      total_cost,
+    ]);
+    db.release();
+    if (result.rowCount === 1) return true;
+    else return false;
+  } catch (err) {
+    console.log(err);
+  }
+};
+
+const fetchNewItems = async() =>{
+  try{
+    const db =await db_pool.connect();
+    const qry = "select product_id from (select distinct product_id,max(restock_date) from size_table group by product_id limit 3) as subQuery;"
+    const res = await db.query(qry);
+    let latest = [];
+    const qry1 = ' select pt.product_name,it.image1,pt.product_cost from products_table pt,image_table it where pt.product_id=it.product_id and pt.product_id=$1;'
+    for(let i=0;i<3;i++){
+    const res1 = await db.query(qry1,[res.rows[i].product_id])
+    latest.push(res1.rows[0])
+    }
     db.release()
-    if(result.rowCount===1) return true
-    else return false
+    // console.log(latest)
+    return latest
   }
   catch(err){
     console.log(err)
@@ -142,5 +181,6 @@ export {
   getItemsInfo,
   getImages,
   getSizes,
-  insertIntoCart
+  insertIntoCart,
+  fetchNewItems
 };

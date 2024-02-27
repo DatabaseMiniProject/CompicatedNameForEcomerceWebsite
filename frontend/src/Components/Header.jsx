@@ -9,7 +9,7 @@ const Header = () => {
   return (
     <div className="header">
       <div className="icon">
-        <Link to="/">
+        <Link to="/cart">
           <SlBasketLoaded />
         </Link>
       </div>
@@ -53,9 +53,10 @@ const Header = () => {
             { href: "/sale-shoes", text: "Sale Shoes" },
           ]}
         /> */}
+        <Link className="dropdown-wrapper" to="/">Home</Link>
         <Link className="dropdown-wrapper" to="/category/men">Men</Link>
         <Link className="dropdown-wrapper" to="/category/women">Women</Link>
-        <Link className="dropdown-wrapper" to="/category/kids">Kids</Link>
+        <Link className="dropdown-wrapper" to="/category/all">Unisex</Link>
       </div>
       <div className="search-wrapper">
         <input type="text" placeholder="Search" className="search-input" />

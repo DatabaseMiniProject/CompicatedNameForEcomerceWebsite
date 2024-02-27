@@ -1,9 +1,10 @@
 import express from "express";
-import { getItemsByCategory } from "../controller/db_query.js";
+import { getItemsByCategory,fetchNewItems } from "../controller/db_query.js";
 const router = express.Router();
 
-router.get("/", (req, res) => {
-  res.json({ page: "home" });
+router.get("/", async(req, res) => {
+  const new_items = await fetchNewItems();
+  res.json({new_items})
 });
 
 router.post("/", (req, res) => {
