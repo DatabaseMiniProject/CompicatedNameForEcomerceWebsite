@@ -4,7 +4,10 @@ import {
   checkDatabase,
   insertIntoDatabase,
   fetchCreds,
-  fetchCartItems
+  fetchCartItems,
+  deleteItems,
+  getUserId,
+  getProdId
 } from "../controller/db_query.js";
 const router = express.Router();
 
@@ -43,9 +46,12 @@ router.get("/", (req, res) => {
 router.get("/cart/:id", async (req, res) => {
   const cart_items = await fetchCartItems(req.params.id);
   if (cart_items.length !== 0) res.json({ res: cart_items });
-  else res.json({ res: ["no items in the cart"] });
 });
 
+router.delete('/cart/:id/:product_name/:product_size',async(req,res)=>{
+  const cart_items = await deleteItems(req.params.id,req.params.product_name,req.params.product_size);
+  res.json(cart_items)
+})
 // router.get("/wishlist/:id", (req, res) => {
 //   res.json({ res: `Wishlist of the user with id=${req.params.id}` });
 // });

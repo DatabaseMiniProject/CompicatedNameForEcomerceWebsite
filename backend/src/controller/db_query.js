@@ -48,16 +48,16 @@ const fetchCreds = async (mail) => {
 const getItemsByCategory = async (categoryName) => {
   try {
     const db = await db_pool.connect();
-    let qry,res;
+    let qry, res;
     if (categoryName === "all") {
       qry =
         "select * from products_table,image_table it,filter_category_table,category_table as ct where it.product_id=products_table.product_id and products_table.product_id=filter_category_table.product_id and filter_category_table.parent_category_id=ct.category_id";
-        res = await db.query(qry);
-      } else {
+      res = await db.query(qry);
+    } else {
       qry =
         "select * from products_table,image_table it,filter_category_table,category_table as ct where it.product_id=products_table.product_id and products_table.product_id=filter_category_table.product_id and filter_category_table.parent_category_id=ct.category_id and ct.category_name=$1";
-        res = await db.query(qry, [categoryName]);
-      }
+      res = await db.query(qry, [categoryName]);
+    }
     db.release();
     return res.rows;
     // console.log(res.rows)
@@ -152,24 +152,62 @@ const insertIntoCart = async (user_id, name, qty, size) => {
   }
 };
 
-const fetchNewItems = async() =>{
-  try{
-    const db =await db_pool.connect();
-    const qry = "select product_id from (select distinct product_id,max(restock_date) from size_table group by product_id limit 3) as subQuery;"
+const fetchNewItems = async () => {
+  try {
+    const db = await db_pool.connect();
+    const qry =
+      "select product_id from (select distinct product_id,max(restock_date) from size_table group by product_id limit 3) as subQuery;";
     const res = await db.query(qry);
     let latest = [];
-    const qry1 = ' select pt.product_name,it.image1,pt.product_cost from products_table pt,image_table it where pt.product_id=it.product_id and pt.product_id=$1;'
-    for(let i=0;i<3;i++){
-    const res1 = await db.query(qry1,[res.rows[i].product_id])
-    latest.push(res1.rows[0])
+    const qry1 =
+      " select pt.product_name,it.image1,pt.product_cost from products_table pt,image_table it where pt.product_id=it.product_id and pt.product_id=$1;";
+    for (let i = 0; i < 3; i++) {
+      const res1 = await db.query(qry1, [res.rows[i].product_id]);
+      latest.push(res1.rows[0]);
     }
-    db.release()
+    db.release();
     // console.log(latest)
-    return latest
+    return latest;
+  } catch (err) {
+    console.log(err);
   }
-  catch(err){
-    console.log(err)
+};
+
+const getUserId = async (name) => {
+  try {
+    const db = await db_pool.connect();
+    const qry = "select user_id from user_table where user_name=$1";
+    const res = await db.query(qry, [name]);
+    db.release();
+    return res.rows[0].user_id;
+  } catch (err) {
+    console.log(err);
   }
+};
+
+const deleteItems = async (id, product_name, product_size) => {
+  try {
+    const uid = await getUserId(id)
+  const pid = await getProdId(product_name)
+    const db = await db_pool.connect();
+    const qry =
+      "delete from cart_table where user_id=$1 and product_id=$2 and product_size=$3";
+    const res = await db.query(qry, [uid, pid, product_size]);
+    db.release();
+    if (res.rowCount === 1) return {pid,product_size};
+  } catch (err) {
+    console.log(err);
+  }
+};
+
+const getProdId=async(name)=>{
+  try{
+    const db=await db_pool.connect();
+    const qry='select product_id from products_table where product_name=$1'
+    const res = await db.query(qry,[name])
+    db.release();
+    return res.rows[0].product_id
+  }catch(err){console.log(err)}
 }
 
 export {
@@ -182,5 +220,8 @@ export {
   getImages,
   getSizes,
   insertIntoCart,
-  fetchNewItems
+  fetchNewItems,
+  deleteItems,
+  getUserId,
+  getProdId
 };

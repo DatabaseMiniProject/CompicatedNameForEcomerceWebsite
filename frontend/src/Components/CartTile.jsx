@@ -1,8 +1,15 @@
+import axios from "axios";
 import "../assets/styles/CartTile.css";
 // import sockImage from "../assets/Images/socks_test.jpeg";
-function CartTile({item}) {
+function CartTile({handleDeleteItem,item}) {
   const {product_name,product_size,qty,total_price,image1} = item;
-  if(product_name===undefined||image1===undefined) return <p>The cart is empty</p>
+  const handleClick = (e) =>{
+    axios.delete(`http://localhost:4000/account/cart/B/${product_name}/${product_size}`).then(res=>{
+      if(!(res.data.pid===undefined&&res.data.product_size)){
+        handleDeleteItem(res.data.pid,res.data.product_size)
+      }
+    })
+  }
   return (
     <div className="cards">
       <div className="cart-image-container">
@@ -18,7 +25,7 @@ function CartTile({item}) {
           <p className="pColor">color: white</p>
           <p className="size">size: {product_size}</p>
           <p className="qty">
-            qty:{qty}<p style={{display:"inline",marginLeft:"0.5rem"}}></p>
+            qty:{qty}<span style={{display:"inline",marginLeft:"0.5rem"}}></span>
             <select>
               <option value="1">1</option>
               <option value="2">2</option>
@@ -35,7 +42,7 @@ function CartTile({item}) {
         </div>
       </div>
       {/* deletes item from cart */}
-      <div className="deleteItem">Remove</div>
+      <div className="deleteItem" onClick={handleClick}>Remove</div>
     </div>
   );
 }
