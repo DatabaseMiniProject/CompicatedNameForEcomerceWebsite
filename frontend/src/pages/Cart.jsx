@@ -7,7 +7,7 @@ import axios from "axios";
 function Cart() {
   const [cartItems,setCartItems]=useState([]);
   useEffect(()=>{
-    axios.get('http://localhost:4000/account/cart/C').then(res=>setCartItems(res.data.res))
+    axios.get('http://localhost:4000/account/cart/B').then(res=>setCartItems(res.data.res))//Implement dynamic account cart fetching
   },[])
   return (
     <div className="cart_page">

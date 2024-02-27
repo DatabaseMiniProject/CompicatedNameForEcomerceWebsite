@@ -2,6 +2,7 @@ import "../assets/styles/CartTile.css";
 // import sockImage from "../assets/Images/socks_test.jpeg";
 function CartTile({item}) {
   const {product_name,product_size,qty,total_price,image1} = item;
+  if(product_name===undefined||image1===undefined) return <p>The cart is empty</p>
   return (
     <div className="cards">
       <div className="cart-image-container">
