@@ -1,0 +1,102 @@
+.checkout-container {
+  display: flex;
+  margin-top: 50px;
+  margin-left: 50px;
+}
+
+.order-details {
+  flex: 1;
+  padding: 20px;
+}
+
+.order-summary {
+  width: 30%;
+  padding: 20px;
+}
+
+.continue-payment-link {
+  text-align: center;
+  margin-top: 20px;
+}
+
+.continue-payment-link a {
+  color: #007bff;
+  text-decoration: none;
+}
+
+.continue-payment-link a:hover {
+  text-decoration: underline;
+}
+
+.checkout-details {
+  flex: 1;
+  padding-right: 20px;
+}
+
+.section-title {
+  font-size: 1.2em;
+  margin-bottom: 20px;
+  font-weight: bold;
+}
+
+.login-message {
+  margin-bottom: 20px;
+}
+
+.form-group {
+  margin-bottom: 20px;
+}
+
+.form-group input[type="text"],
+.form-group input[type="email"],
+.form-group input[type="tel"] {
+  width: 80%;
+  margin-bottom: 20px;
+  padding: 15px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+}
+
+.form-group label {
+  display: block;
+  margin-top: 10px;
+}
+
+.shipping-options label {
+  display: block;
+  margin-bottom: 20px;
+}
+
+.shipping-options label span {
+  margin-left: 10px;
+}
+
+button[type="submit"] {
+  width: 30%;
+  margin-top: 10px;
+  margin-left: 100px;
+  padding: 10px;
+  background-color: #720606;
+  color: #fff;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  align-items: center;
+}
+
+button[type="submit"]:hover {
+  background-color: #150152;
+}
+
+.order-summary {
+  width: 30%;
+  padding: 10px;
+}
+
+.order-summary h3 {
+  text-align: center;
+}
+
+.order-summary-items {
+  margin-top: 10px;
+}
