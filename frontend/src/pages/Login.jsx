@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import { Link } from "react-router-dom";
 import Header from "../Components/Header";
 import Footer from "../Components/Footer";
+import axios from 'axios'
 import "../assets/styles/Login.css";
 
 const Login = () => {
@@ -19,7 +20,8 @@ const Login = () => {
   const handleSubmit = (e) => {
     e.preventDefault();
     // Add your login logic here
-    console.log("Login form submitted:", formData);
+    axios.post('http://localhost:4000/account/login',formData).then(res=>console.log(res.data))
+    // console.log("Login form submitted:", formData);
   };
 
   return (

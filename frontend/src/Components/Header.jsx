@@ -1,4 +1,4 @@
-import Dropdown from "./Dropdown";
+// import Dropdown from "./Dropdown";
 import { Link } from "react-router-dom";
 import "../assets/styles/Header.css";
 // Icons
@@ -9,12 +9,12 @@ const Header = () => {
   return (
     <div className="header">
       <div className="icon">
-        <Link to="/">
+        <Link to="/cart">
           <SlBasketLoaded />
         </Link>
       </div>
       <div className="links">
-        <Dropdown
+        {/* <Dropdown
           linkText="New"
           dropdownItems={[
             { href: "/new-arrivals", text: "New Arrivals" },
@@ -52,7 +52,11 @@ const Header = () => {
             { href: "/sale-clothing", text: "Sale Clothing" },
             { href: "/sale-shoes", text: "Sale Shoes" },
           ]}
-        />
+        /> */}
+        <Link className="dropdown-wrapper" to="/">Home</Link>
+        <Link className="dropdown-wrapper" to="/category/men">Men</Link>
+        <Link className="dropdown-wrapper" to="/category/women">Women</Link>
+        <Link className="dropdown-wrapper" to="/category/unisex">Unisex</Link>
       </div>
       <div className="search-wrapper">
         <input type="text" placeholder="Search" className="search-input" />

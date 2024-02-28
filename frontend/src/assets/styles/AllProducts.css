@@ -193,7 +193,7 @@
     height: 2rem;
     width: 7rem;
     border: none;
-    background-color: white;
+    background-color: rgb(124, 124, 124);
 }
 .sort_by{
     position: absolute;

@@ -1,41 +1,59 @@
 import express from "express";
 import bcrypt from "bcryptjs";
-import { checkDatabase,insertIntoDatabase,fetchCreds } from "../controller/db_query.js";
+import {
+  checkDatabase,
+  insertIntoDatabase,
+  fetchCreds,
+  fetchCartItems,
+  deleteItems,
+  getUserId,
+  getProdId
+} from "../controller/db_query.js";
 const router = express.Router();
 
 //***Query the sign-up if into the table if the mail id and username doesn't already exist***
-router.post("/signup", async(req, res) => {
-  const { uName, mail, pWd } = req.body;
-  const isInDatabase = await checkDatabase(uName, mail);
+router.post("/signup", async (req, res) => {
+  const { username,password,email } = req.body.packet;
+  // console.log(username,email,password)
+  const isInDatabase = await checkDatabase(username, email);
+  // console.log(isInDatabase);
   if (isInDatabase) {
-    res.json({ status: 'already_present' });
+    res.json({ status: true });
   } else {
     const salt = bcrypt.genSaltSync();
-    const pHash = bcrypt.hashSync(pWd, salt);
-    const insert = await insertIntoDatabase(uName, mail, pHash);
-    if (insert.rowCount) res.status(200).json({ status: "registered" });
-    else res.status(500).json({ status: "try_again" });
+    const pHash = bcrypt.hashSync(password, salt);
+    const insert = await insertIntoDatabase(username, email, pHash);
+    if (insert.rowCount) res.status(200).json({ status: true });
+    else res.status(500).json({ status: false });
   }
 });
 
 //***Query the table and fetch the stored password hash and compare it with the hash of the entered password */
-router.post("/login",async(req, res) => {
-  const {mail,pWd}=req.body;
-  const db_creds = await fetchCreds(mail);
-  const compare_hash=bcrypt.compareSync(pWd,db_creds.passhash);
-  res.json({ res: compare_hash });
+router.post("/login", async (req, res) => {
+  const {email,password}=req.body
+  const db_creds = await fetchCreds(email);
+  // console.log(db_creds)
+  if (db_creds.user_id !== undefined) {
+    const compare_hash = bcrypt.compareSync(password, db_creds.user_password_hash);
+    res.json({ res: compare_hash });
+  }
 });
 
 router.get("/", (req, res) => {
   res.json({ res: "My Account info" });
 });
 
-router.get("/cart/:id", (req, res) => {
-  res.json({ res: `Cart of the user with id=${req.params.id}` });
+router.get("/cart/:id", async (req, res) => {
+  const cart_items = await fetchCartItems(req.params.id);
+  if (cart_items.length !== 0) res.json({ res: cart_items });
 });
 
-router.get("/wishlist/:id", (req, res) => {
-  res.json({ res: `Wishlist of the user with id=${req.params.id}` });
-});
+router.delete('/cart/:id/:product_name/:product_size',async(req,res)=>{
+  const cart_items = await deleteItems(req.params.id,req.params.product_name,req.params.product_size);
+  res.json(cart_items)
+})
+// router.get("/wishlist/:id", (req, res) => {
+//   res.json({ res: `Wishlist of the user with id=${req.params.id}` });
+// });
 
 export default router;

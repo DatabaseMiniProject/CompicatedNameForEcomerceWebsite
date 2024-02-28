@@ -1,17 +1,19 @@
 import React, { useState } from "react";
 import { Link } from "react-router-dom";
+import axios from 'axios'
 import Header from "../Components/Header";
 import Footer from "../Components/Footer";
 import "../assets/styles/Register.css";
 
 const Register = () => {
   const [formData, setFormData] = useState({
+    username:"",
     email: "",
     password: "",
     confirmPassword: "",
   });
 
-  const { email, password, confirmPassword } = formData;
+  const { username,email, password, confirmPassword } = formData;
 
   const handleChange = (e) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
@@ -20,7 +22,15 @@ const Register = () => {
   const handleSubmit = (e) => {
     e.preventDefault();
     // Add your register logic here
-    console.log("Register form submitted:", formData);
+    if(password===confirmPassword){
+    const packet = {
+      username:username,
+      password:password,
+      email:email
+    }
+    axios.post('http://localhost:4000/account/signup',{packet}).then(res=>console.log(res.data))
+    }
+    // console.log("Register form submitted:", formData);
   };
 
   return (
@@ -29,6 +39,16 @@ const Register = () => {
       <div className="register-container">
         <h2>Register</h2>
         <form onSubmit={handleSubmit}>
+        <div className="form-group">
+          <label>User Name</label>
+          <input
+              type="text"
+              name="username"
+              value={username}
+              onChange={handleChange}
+              required
+            />
+        </div>
           <div className="form-group">
             <label>Email</label>
             <input

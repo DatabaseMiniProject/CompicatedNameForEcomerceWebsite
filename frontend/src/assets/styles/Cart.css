@@ -38,6 +38,7 @@
 .right-sub-sub-container h1{
     font-size: 1.7rem;
     margin-bottom: 10%;
+    margin-left: 3rem;
 }
 .right-sub-sub-container{
     height: 75%;
@@ -48,6 +49,7 @@
     font-size: 1.2rem;
     position: relative;
     margin: 1rem auto;
+    text-align: justify;
 }
 .right-sub-sub-container p span{
     position: absolute;

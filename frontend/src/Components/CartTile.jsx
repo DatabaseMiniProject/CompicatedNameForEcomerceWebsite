@@ -1,22 +1,31 @@
+import axios from "axios";
 import "../assets/styles/CartTile.css";
-import sockImage from "../assets/Images/socks_test.jpeg";
-function CartTile() {
+// import sockImage from "../assets/Images/socks_test.jpeg";
+function CartTile({handleDeleteItem,item}) {
+  const {product_name,product_size,qty,total_price,image1} = item;
+  const handleClick = (e) =>{
+    axios.delete(`http://localhost:4000/account/cart/B/${product_name}/${product_size}`).then(res=>{
+      if(!(res.data.pid===undefined&&res.data.product_size)){
+        handleDeleteItem(res.data.pid,res.data.product_size)
+      }
+    })
+  }
   return (
     <div className="cards">
       <div className="cart-image-container">
         <a href="/">
-          <img className="cartTile-image" src={sockImage} alt="cartItem" />
+          <img className="cartTile-image" src={image1} alt="cartItem" />
         </a>
       </div>
       <div className="cart-options">
-        <a href="/">Product Name</a>
-        <span>$15.22</span>
+        <a href="/">{product_name}</a>
+        <span>${total_price}</span>
           <p className="pCategory">unisex</p>
         <div className="prodDetails">
           <p className="pColor">color: white</p>
-          <p className="size">size: L</p>
+          <p className="size">size: {product_size}</p>
           <p className="qty">
-            qty:
+            qty:{qty}<span style={{display:"inline",marginLeft:"0.5rem"}}></span>
             <select>
               <option value="1">1</option>
               <option value="2">2</option>
@@ -33,7 +42,7 @@ function CartTile() {
         </div>
       </div>
       {/* deletes item from cart */}
-      <div className="deleteItem">Remove</div>
+      <div className="deleteItem" onClick={handleClick}>Remove</div>
     </div>
   );
 }

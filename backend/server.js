@@ -1,8 +1,8 @@
 import express from "express";
 import cors from 'cors';
 import homeRouter from './src/routes/home_page.js';
-import shopRouter from './src/routes/shop.js';
 import accountRouter from './src/routes/account.js';
+import productRouter from './src/routes/products.js';
 import {port} from './src/controller/db_config.js';
 
 const app = express();
@@ -12,8 +12,7 @@ app.use(express.urlencoded({extended:true}));
 app.use(cors());
 app.use('/',homeRouter);
 app.use('/account',accountRouter);
-app.use('/shop',shopRouter);
-
+app.use('/products',productRouter)
 app.listen(port, () => {
   console.log(`Server is running at http://localhost:${port}`);
 });
