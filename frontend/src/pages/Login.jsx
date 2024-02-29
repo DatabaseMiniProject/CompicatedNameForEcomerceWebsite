@@ -1,42 +1,33 @@
-import React, { useState } from "react";
-import { Link } from "react-router-dom";
+import React, { useContext, useEffect } from "react";
+import { Link, useNavigate } from "react-router-dom";
+import AuthContext from '../Api/AuthProvider.js' 
 import Header from "../Components/Header";
 import Footer from "../Components/Footer";
-import axios from 'axios'
 import "../assets/styles/Login.css";
 
 const Login = () => {
-  const [formData, setFormData] = useState({
-    email: "",
-    password: "",
-  });
-
-  const { email, password } = formData;
-
-  const handleChange = (e) => {
-    setFormData({ ...formData, [e.target.name]: e.target.value });
-  };
-
-  const handleSubmit = (e) => {
-    e.preventDefault();
-    // Add your login logic here
-    axios.post('http://localhost:4000/account/login',formData).then(res=>console.log(res.data))
-    // console.log("Login form submitted:", formData);
-  };
-
+  const navigate = useNavigate();
+  const {user,formData, handleChangeLogin,
+    handleLogin}=useContext(AuthContext);
+    const { email, password } = formData;
+  useEffect(()=>{
+    if(user.isAuthenticated){
+      navigate('/')
+    }
+  })
   return (
     <div>
       <Header />
       <div className="login-container">
         <h2>Login</h2>
-        <form onSubmit={handleSubmit}>
+        <form onSubmit={handleLogin}>
           <div className="form-group">
             <label>Email</label>
             <input
               type="email"
               name="email"
               value={email}
-              onChange={handleChange}
+              onChange={handleChangeLogin}
               required
             />
           </div>
@@ -46,7 +37,7 @@ const Login = () => {
               type="password"
               name="password"
               value={password}
-              onChange={handleChange}
+              onChange={handleChangeLogin}
               required
             />
           </div>

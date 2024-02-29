@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import "../assets/styles/Checkout.css"; // Import the CSS for checkout page
+import axios from "axios";
 
 const Checkout = () => {
   const [formData, setFormData] = useState({
@@ -24,6 +25,8 @@ const Checkout = () => {
   const handleSubmit = (e) => {
     e.preventDefault();
     // Add your checkout logic here
+    if(formData.firstName&&formData.lastName&&formData.streetAddress&&formData.phoneNumber&&formData.email)
+    axios.post('http://localhost:4000/account/checkout/52922',formData).then(res=>console.log(res));
     console.log("Checkout form submitted:", formData);
   };
 

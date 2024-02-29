@@ -1,4 +1,3 @@
-<<<<<<< HEAD:frontend/src/pages/Men.jsx
 // import "../assets/styles/Men.css";
 // import { useEffect } from "react";
 // import axios from "axios";
@@ -147,7 +146,6 @@
 //     </div>
 //   );
 // }
-=======
 import "../assets/styles/AllProducts.css";
 import { useEffect } from "react";
 import axios from 'axios'
@@ -275,6 +273,5 @@ function Men({category}) {
     </div>
   );
 }
->>>>>>> 440026174e18a381c00fff0f58e19912f925854e:frontend/src/pages/AllProducts.jsx
 
-// export default Men;
+export default Men;

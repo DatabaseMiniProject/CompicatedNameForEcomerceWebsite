@@ -6,25 +6,22 @@ import {
   fetchCreds,
   fetchCartItems,
   deleteItems,
-  getUserId,
-  getProdId
+  getCartItems
 } from "../controller/db_query.js";
 const router = express.Router();
 
 //***Query the sign-up if into the table if the mail id and username doesn't already exist***
 router.post("/signup", async (req, res) => {
   const { username,password,email } = req.body.packet;
-  // console.log(username,email,password)
   const isInDatabase = await checkDatabase(username, email);
-  // console.log(isInDatabase);
   if (isInDatabase) {
-    res.json({ status: true });
+    res.json({ isAuthenticated: false,id:1111 });
   } else {
     const salt = bcrypt.genSaltSync();
     const pHash = bcrypt.hashSync(password, salt);
     const insert = await insertIntoDatabase(username, email, pHash);
-    if (insert.rowCount) res.status(200).json({ status: true });
-    else res.status(500).json({ status: false });
+    if (insert.res) res.status(200).json({ isAuthenticated: true,id:insert.uiD });
+    else res.status(500).json({ isAuthenticated: false });
   }
 });
 
@@ -35,7 +32,7 @@ router.post("/login", async (req, res) => {
   // console.log(db_creds)
   if (db_creds.user_id !== undefined) {
     const compare_hash = bcrypt.compareSync(password, db_creds.user_password_hash);
-    res.json({ res: compare_hash });
+    res.json({ isAuthenticated: compare_hash,id:db_creds.user_id});
   }
 });
 
@@ -55,5 +52,12 @@ router.delete('/cart/:id/:product_name/:product_size',async(req,res)=>{
 // router.get("/wishlist/:id", (req, res) => {
 //   res.json({ res: `Wishlist of the user with id=${req.params.id}` });
 // });
+
+router.post('/checkout/:id',async(req,res)=>{
+  const checkout_options = req.body
+  const user_id = req.params.id
+  const result = await getCartItems(user_id);
+  const pushed=await insertIntoOrderTableAndProduct_table(id,result,checkout_options);
+})
 
 export default router;

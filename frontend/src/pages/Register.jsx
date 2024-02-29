@@ -1,51 +1,39 @@
-import React, { useState } from "react";
-import { Link } from "react-router-dom";
-import axios from 'axios'
+import React, {useContext, useEffect } from "react";
+import { Link, useNavigate } from "react-router-dom";
+import AuthContext from "../Api/AuthProvider";
 import Header from "../Components/Header";
 import Footer from "../Components/Footer";
 import "../assets/styles/Register.css";
 
 const Register = () => {
-  const [formData, setFormData] = useState({
-    username:"",
-    email: "",
-    password: "",
-    confirmPassword: "",
-  });
-
-  const { username,email, password, confirmPassword } = formData;
-
-  const handleChange = (e) => {
-    setFormData({ ...formData, [e.target.name]: e.target.value });
-  };
-
-  const handleSubmit = (e) => {
-    e.preventDefault();
-    // Add your register logic here
-    if(password===confirmPassword){
-    const packet = {
-      username:username,
-      password:password,
-      email:email
+  const navigate = useNavigate();
+  const {user,formDataSignup,handleSignup,
+    handleChangeSignup}=useContext(AuthContext);
+  useEffect(()=>{
+    if(user.isAuthenticated===false && user.id===1111){
+      alert("The username and mail already exist")
     }
-    axios.post('http://localhost:4000/account/signup',{packet}).then(res=>console.log(res.data))
+    else if(user.isAuthenticated===true){
+      navigate('/')
     }
-    // console.log("Register form submitted:", formData);
-  };
+    console.log(user.isAuthenticated)
+  })
+
+  const { username,email, password, confirmPassword } = formDataSignup;
 
   return (
     <div>
       <Header /> {/* Render the Header component */}
       <div className="register-container">
         <h2>Register</h2>
-        <form onSubmit={handleSubmit}>
+        <form onSubmit={handleSignup}>
         <div className="form-group">
           <label>User Name</label>
           <input
               type="text"
               name="username"
               value={username}
-              onChange={handleChange}
+              onChange={handleChangeSignup}
               required
             />
         </div>
@@ -55,7 +43,7 @@ const Register = () => {
               type="email"
               name="email"
               value={email}
-              onChange={handleChange}
+              onChange={handleChangeSignup}
               required
             />
           </div>
@@ -65,7 +53,7 @@ const Register = () => {
               type="password"
               name="password"
               value={password}
-              onChange={handleChange}
+              onChange={handleChangeSignup}
               required
             />
           </div>
@@ -75,7 +63,7 @@ const Register = () => {
               type="password"
               name="confirmPassword"
               value={confirmPassword}
-              onChange={handleChange}
+              onChange={handleChangeSignup}
               required
             />
           </div>

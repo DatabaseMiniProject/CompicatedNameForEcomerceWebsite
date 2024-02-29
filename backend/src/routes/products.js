@@ -14,7 +14,7 @@ router.post('/:productName',async (req,res)=>{
     const {qty,size} = req.body;
     const product_name = req.params.productName;
     // console.log(product_name,qty,size)
-    const user_id = 13689
+    const user_id =  52922
     const addedToCart = await insertIntoCart(user_id,product_name,qty,size);
     if(addedToCart) 
     res.status(200).json({res:"ok"})

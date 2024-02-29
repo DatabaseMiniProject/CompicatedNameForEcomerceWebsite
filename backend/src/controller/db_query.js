@@ -4,10 +4,9 @@ import { v4 } from "uuid";
 //****Query to check if the username and mail already exists */
 const checkDatabase = async (username, email) => {
   try {
-    // console.log(username,email)
     const db = await db_pool.connect();
-    const qry = "select * from user_table where user_name='C' and user_mail=$1";
-    const res = await db.query(qry, [email]);
+    const qry = "select * from user_table where user_name = $1 and user_mail = $2";
+    const res = await db.query(qry, [username, email]);
     db.release();
     if (res.rowCount === 0) return false;
     else return true;
@@ -25,7 +24,7 @@ const insertIntoDatabase = async (uName, mail, pHash) => {
     const integerId = parseInt(uuidString.slice(0, 4), 16);
     const res = await db.query(qry, [integerId, uName, pHash, mail]);
     db.release();
-    return res;
+    return {res:res.rowCount,uiD:integerId};
   } catch (err) {
     console.log(err);
   }
@@ -65,7 +64,7 @@ const fetchCartItems = async (username) => {
     const db = await db_pool.connect();
     // have to add the size to qry as well
     const qry =
-      " select ut.user_name,pt.product_name,ct.product_size,ct.qty,ct.total_price,it.image1 from image_table it,user_table ut,products_table pt,cart_table ct,size_table st where ct.product_size=st.product_size and st.product_id=ct.product_id and pt.product_id=it.product_id and ct.product_id = pt.product_id and ct.user_id = ut.user_id and ut.user_name=$1;";
+      " select ut.user_name,pt.product_name,ct.product_size,ct.qty,ct.total_price,it.image1 from image_table it,user_table ut,products_table pt,cart_table ct,size_table st where ct.product_size=st.product_size and st.product_id=ct.product_id and pt.product_id=it.product_id and ct.product_id = pt.product_id and ct.user_id = ut.user_id and ut.user_id=$1;";
     const res = await db.query(qry, [username]);
     db.release();
     return res.rows;
@@ -204,6 +203,29 @@ const getProdId=async(name)=>{
   }catch(err){console.log(err)}
 }
 
+const getCartItems=async(id)=>{
+  try{
+    const db = await db_pool.connect();
+    const qry = 'select * from cart_table where user_id=$1';
+    const res =  await db.query(qry,[id])
+    db.release();
+    return res.rows
+  }
+  catch(err){
+    console.log(err)
+  }
+}
+
+const insertIntoOrderTableAndProduct_table = async (id,result,checkout_options) =>{
+  try{
+    const db =  await db_pool.connect();
+    const qry1='Exec checkoutProcedure';
+  }
+  catch(err){
+    console.log(err)
+  }  
+}
+
 export {
   checkDatabase,
   insertIntoDatabase,
@@ -216,6 +238,5 @@ export {
   insertIntoCart,
   fetchNewItems,
   deleteItems,
-  getUserId,
-  getProdId
+  getCartItems
 };
