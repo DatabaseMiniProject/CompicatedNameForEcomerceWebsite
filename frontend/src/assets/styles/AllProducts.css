@@ -1,6 +1,4 @@
 .main{
-    animation-name: fadeIn;
-    animation-duration: 0.28s;
     /* This is the whole page */
     position: relative;
     min-height: 100vh;

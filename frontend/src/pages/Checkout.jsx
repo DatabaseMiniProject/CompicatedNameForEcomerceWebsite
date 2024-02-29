@@ -1,8 +1,10 @@
-import React, { useState } from "react";
+import React, { useContext, useState } from "react";
 import "../assets/styles/Checkout.css"; // Import the CSS for checkout page
 import axios from "axios";
+import AuthContext from "../Api/AuthProvider";
 
 const Checkout = () => {
+  const {user}=useContext(AuthContext)
   const [formData, setFormData] = useState({
     firstName: "",
     lastName: "",
@@ -26,7 +28,7 @@ const Checkout = () => {
     e.preventDefault();
     // Add your checkout logic here
     if(formData.firstName&&formData.lastName&&formData.streetAddress&&formData.phoneNumber&&formData.email)
-    axios.post('http://localhost:4000/account/checkout/52922',formData).then(res=>console.log(res));
+    axios.post(`http://localhost:4000/account/checkout/${user.id}`,formData).then(res=>console.log(res));
     console.log("Checkout form submitted:", formData);
   };
 

@@ -12,7 +12,7 @@ const LargeCard = ({ product }) => {
       <div className="card-details">
         <Link to={link} className="card-link">
           <h3 className="card-title">{title}</h3>
-          <p className="card-price">{price}</p>
+          <p className="card-price">${price}</p>
         </Link>
       </div>
     </div>

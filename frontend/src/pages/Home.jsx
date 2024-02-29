@@ -23,15 +23,6 @@ const Home = () => {
     price: "$19.99",
     link: "http://localhost:3000/products",
   };
-
-  const product3 = {
-    image:
-      "https://www.newbalance.com/dw/image/v2/AAGI_PRD/on/demandware.static/-/Library-Sites-NBUS-NBCA/default/dwbae4cfaa/images/page-designer/2024/February/16198_Comp_E_Image1.jpg?sw=1616&sfrm=jpg",
-    title: "Orange",
-    price: "$109.99",
-    link: "http://localhost:3000/products",
-  };
-
   if(isLoading) return <h1>Loading.....</h1>
   return (
     <div className="home-container">
@@ -50,7 +41,7 @@ const Home = () => {
         <button className="shop-all-button">Shop All</button>
       </Link>
       <div className="large-cards-container">
-        <LargeCard product={product3} />
+        <LargeCard product={{link:"/products/"+newItems[1].product_name, image:newItems[1].image1,  title:newItems[1].product_name, price:newItems[1].product_cost}} />
         <LargeCard product={{link:"/products/"+newItems[0].product_name, image:newItems[0].image1,  title:newItems[0].product_name, price:newItems[0].product_cost}} />
       </div>
       <Footer />

@@ -29,6 +29,7 @@ router.post("/signup", async (req, res) => {
 router.post("/login", async (req, res) => {
   const {email,password}=req.body
   const db_creds = await fetchCreds(email);
+  console.log(db_creds.user_id)
   // console.log(db_creds)
   if (db_creds.user_id !== undefined) {
     const compare_hash = bcrypt.compareSync(password, db_creds.user_password_hash);
@@ -41,6 +42,7 @@ router.get("/", (req, res) => {
 });
 
 router.get("/cart/:id", async (req, res) => {
+  console.log(req.params.id)
   const cart_items = await fetchCartItems(req.params.id);
   if (cart_items.length !== 0) res.json({ res: cart_items });
 });

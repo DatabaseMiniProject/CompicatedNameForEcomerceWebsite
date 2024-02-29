@@ -16,7 +16,6 @@ const Register = () => {
     else if(user.isAuthenticated===true){
       navigate('/')
     }
-    console.log(user.isAuthenticated)
   })
 
   const { username,email, password, confirmPassword } = formDataSignup;

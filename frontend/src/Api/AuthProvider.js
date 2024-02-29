@@ -18,9 +18,8 @@ export const AuthProvider = ({ children }) => {
     e.preventDefault();
     axios
       .post("http://localhost:4000/account/login", formData)
-      .then((res) => setUser(res.data));
+      .then((res) =>{ setUser(res.data);});
   };
-
   //Signup form
   const [formDataSignup, setFormDataSignup] = useState({
     username: "",

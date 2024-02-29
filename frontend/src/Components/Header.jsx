@@ -12,7 +12,7 @@ const Header = () => {
   const { user,setUser } = useContext(AuthContext);
   useEffect(()=>{
     if(user.isAuthenticated===false) navigate('/')
-  })
+  },[navigate,user])
   return (
     <div className="header">
       <div className="icon">

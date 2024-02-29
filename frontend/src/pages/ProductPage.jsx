@@ -8,8 +8,8 @@ import AuthContext from "../Api/AuthProvider";
 function ProductPage() {
   const location = useLocation();
   const navigate = useNavigate();
-  const from = location.pathname;
-  console.log(from)
+  // const from = location.pathname;
+  // console.log(from)
   const {user}=useContext(AuthContext)
   const [productInformation,setProductInformation]=useState({})
   const [isLoading,setIsLoading]=useState(true)
@@ -22,8 +22,8 @@ function ProductPage() {
   },[url])
   const handleCart = () =>{
     if(user.isAuthenticated===true)
-    axios.post(url,{qty:qty,size:prodSize}).then(res=>console.log(res)).catch(err=>console.log(err))//Change console.log to setStatus for added successfully message
-  else navigate('/login',{state:from})
+    axios.post(url,{id:user.id,qty:qty,size:prodSize}).then(res=>console.log(res)).catch(err=>console.log(err))//Change console.log to setStatus for added successfully message
+  else navigate('/login')
   }
   if(isLoading) return <h1>Loading.....</h1>
   return (

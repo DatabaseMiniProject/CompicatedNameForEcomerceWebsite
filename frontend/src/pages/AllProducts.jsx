@@ -158,13 +158,14 @@ import Header from "../Components/Header";
 import Footer from "../Components/Footer";
 function Men({category}) {
   const [showFilter, setShowFilter] = useState(false);
+  const [isLoading,setIsLoading]=useState(true);
   const [items,setItems] = useState([])
   const cName = category.charAt(0).toUpperCase()+category.substring(1,);
   useEffect(()=>{
-    // console.log('Calling /men path')
     axios.get(`http://localhost:4000/${category}`)
-    .then(res=>{setItems(res.data.items)})
+    .then(res=>{setItems(res.data.items);setTimeout(()=>setIsLoading(false),800)})
   },[category])
+  if(isLoading) return<h1>Loading....</h1>
   return (
     <div className="main">
     <Header/>
