@@ -1,16 +1,19 @@
-import React, { useEffect, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import CartTile from "../Components/CartTile";
 import "../assets/styles/Cart.css";
 import Header from "../Components/Header";
 import Footer from "../Components/Footer";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
+import AuthContext from "../Api/AuthProvider";
 function Cart() {
   const navigate = useNavigate();
   const [cartItems,setCartItems]=useState([]);
+  const {user}=useContext(AuthContext);
+  const url = `http://localhost:4000/account/cart/${user.id}`
   useEffect(()=>{
-    axios.get('http://localhost:4000/account/cart/52922').then(res=>setCartItems(res.data.res))//Implement dynamic account cart fetching
-  },[])
+    axios.get(url).then(res=>setCartItems(res.data.res))//Implement dynamic account cart fetching
+  },[url])
   const handleDeleteItem = (itemId,itemSize) => {
   const updatedCart = cartItems.filter((item) => (item.product_id !== itemId&&item.product_size !== itemSize));
   setCartItems(updatedCart);
@@ -19,8 +22,8 @@ let sum=0;
 for(let i=0;i<cartItems.length;i++){
   sum+=Number(cartItems[i].total_price)
 }
-const handleCheckout = (id)=>{ 
-  navigate(`/checkout/${id}`)
+const handleCheckout = ()=>{ 
+  navigate(`/checkout/${user.id}`)
 }
 const isEmptyCart = cartItems.length === 0;
   return (
@@ -44,7 +47,7 @@ const isEmptyCart = cartItems.length === 0;
                 Order Total<span>${sum}</span>
               </p>
               <div className="button-container">
-                <button className="checkOut" type="button" onClick={()=>handleCheckout(52922)}>Checkout</button>
+                <button className="checkOut" type="button" onClick={()=>handleCheckout()}>Checkout</button>
               </div>
             </div>
           </div>

@@ -1,17 +1,24 @@
 // import Dropdown from "./Dropdown";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import "../assets/styles/Header.css";
+import { useContext, useEffect } from "react";
+import AuthContext from "../Api/AuthProvider";
 // Icons
 import { SlBasketLoaded } from "react-icons/sl";
 import { CiSearch } from "react-icons/ci";
 
 const Header = () => {
+  const navigate = useNavigate();
+  const { user,setUser } = useContext(AuthContext);
+  useEffect(()=>{
+    if(user.isAuthenticated===false) navigate('/')
+  })
   return (
     <div className="header">
       <div className="icon">
-        <Link to="/cart">
-          <SlBasketLoaded />
-        </Link>
+      {user.isAuthenticated?<Link to="/cart">
+        <SlBasketLoaded />
+      </Link>:<></>}
       </div>
       <div className="links">
         {/* <Dropdown
@@ -53,10 +60,18 @@ const Header = () => {
             { href: "/sale-shoes", text: "Sale Shoes" },
           ]}
         /> */}
-        <Link className="dropdown-wrapper" to="/">Home</Link>
-        <Link className="dropdown-wrapper" to="/category/men">Men</Link>
-        <Link className="dropdown-wrapper" to="/category/women">Women</Link>
-        <Link className="dropdown-wrapper" to="/category/unisex">Unisex</Link>
+        <Link className="dropdown-wrapper" to="/">
+          Home
+        </Link>
+        <Link className="dropdown-wrapper" to="/category/men">
+          Men
+        </Link>
+        <Link className="dropdown-wrapper" to="/category/women">
+          Women
+        </Link>
+        <Link className="dropdown-wrapper" to="/category/unisex">
+          Unisex
+        </Link>
       </div>
       <div className="search-wrapper">
         <input type="text" placeholder="Search" className="search-input" />
@@ -65,12 +80,18 @@ const Header = () => {
         </Link>
       </div>
       <div className="auth-links">
-        <Link to="/login" className="login-link">
-          Login
-        </Link>{" "}
-        <Link to="/register" className="register-link">
-          Register
-        </Link>
+        {user.isAuthenticated ? (
+          <Link className="login-link" onClick={()=>setUser({isAuthenticated:false,id:0})}>Logout</Link>
+        ) : (
+          <>
+            <Link to="/login" className="login-link">
+              Login
+            </Link>
+            <Link to="/register" className="register-link">
+              Register
+            </Link>
+          </>
+        )}
       </div>
     </div>
   );

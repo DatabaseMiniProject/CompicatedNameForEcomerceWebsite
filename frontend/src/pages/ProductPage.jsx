@@ -2,10 +2,15 @@ import "../assets/styles/ProductPage.css";
 import Header from "../Components/Header";
 import Footer from "../Components/Footer";
 import axios from 'axios';
-import { useLocation } from "react-router-dom";
-import { useEffect, useState } from "react";
+import { useLocation, useNavigate } from "react-router-dom";
+import { useContext, useEffect, useState } from "react";
+import AuthContext from "../Api/AuthProvider";
 function ProductPage() {
   const location = useLocation();
+  const navigate = useNavigate();
+  const from = location.pathname;
+  console.log(from)
+  const {user}=useContext(AuthContext)
   const [productInformation,setProductInformation]=useState({})
   const [isLoading,setIsLoading]=useState(true)
   const [prodSize,setSize]=useState("");
@@ -13,10 +18,12 @@ function ProductPage() {
   const url =  `http://localhost:4000/products/${location.pathname.split('/')[2]}`
   const {information,images,sizes}=productInformation;
   useEffect(()=>{
-    axios.get(url).then(res=>{setProductInformation(res.data);setIsLoading(false)}).catch(err=>console.log(err))
+    axios.get(url).then(res=>{setProductInformation(res.data);setTimeout(()=>setIsLoading(false),800)}).catch(err=>console.log(err))
   },[url])
   const handleCart = () =>{
+    if(user.isAuthenticated===true)
     axios.post(url,{qty:qty,size:prodSize}).then(res=>console.log(res)).catch(err=>console.log(err))//Change console.log to setStatus for added successfully message
+  else navigate('/login',{state:from})
   }
   if(isLoading) return <h1>Loading.....</h1>
   return (

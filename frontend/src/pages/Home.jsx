@@ -10,8 +10,11 @@ import axios from "axios";
 
 const Home = () => {
   const [newItems,setNewItems]=useState([]);
+  const [isLoading,setIsLoading]=useState(true)
   useEffect(()=>{
-    axios.get('http://localhost:4000').then(res=>setNewItems(res.data.new_items))
+    axios.get('http://localhost:4000').then(res=>{setNewItems(res.data.new_items);setTimeout(() => {
+      setIsLoading(false);
+    }, 1000);})
   },[])
   const product1 = {
     image:
@@ -29,14 +32,7 @@ const Home = () => {
     link: "http://localhost:3000/products",
   };
 
-  const product4 = {
-    image:
-      "https://www.newbalance.com/dw/image/v2/AAGI_PRD/on/demandware.static/-/Library-Sites-NBUS-NBCA/default/dw6fa98ea4/images/page-designer/2024/Jan/16160_Comp_E_Image1.jpg?sw=1616&sfrm=jpg",
-    title: "Orange",
-    price: "$109.99",
-    link: "http://localhost:3000/products",
-  };
-
+  if(isLoading) return <h1>Loading.....</h1>
   return (
     <div className="home-container">
       <Header />
@@ -55,7 +51,7 @@ const Home = () => {
       </Link>
       <div className="large-cards-container">
         <LargeCard product={product3} />
-        <LargeCard product={product4} />
+        <LargeCard product={{link:"/products/"+newItems[0].product_name, image:newItems[0].image1,  title:newItems[0].product_name, price:newItems[0].product_cost}} />
       </div>
       <Footer />
     </div>

@@ -7,7 +7,7 @@ const LargeCard = ({ product }) => {
   return (
     <div className="large-card">
       <Link to={link} className="card-link">
-        <img src={image} alt={title} className="card-image" />
+        <img style={{height: "500px",objectFit:"cover"}} src={image} alt={title} className="card-image" />
       </Link>
       <div className="card-details">
         <Link to={link} className="card-link">

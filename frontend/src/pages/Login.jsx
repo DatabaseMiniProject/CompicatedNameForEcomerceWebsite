@@ -1,5 +1,5 @@
-import React, { useContext, useEffect } from "react";
-import { Link, useNavigate } from "react-router-dom";
+import React, { useContext } from "react";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 import AuthContext from '../Api/AuthProvider.js' 
 import Header from "../Components/Header";
 import Footer from "../Components/Footer";
@@ -10,11 +10,12 @@ const Login = () => {
   const {user,formData, handleChangeLogin,
     handleLogin}=useContext(AuthContext);
     const { email, password } = formData;
-  useEffect(()=>{
+    const location=useLocation();
     if(user.isAuthenticated){
-      navigate('/')
+      console.log(location.state?.from)
+      const from = location.state?.from||'/';
+      navigate(from)
     }
-  })
   return (
     <div>
       <Header />
