@@ -5,7 +5,7 @@ const AuthContext = createContext({});
 
 export const AuthProvider = ({ children }) => {
   const [user, setUser] = useState({});
-
+  console.log(user,1)
   //Login form
   const [formData, setFormData] = useState({
     email: "",

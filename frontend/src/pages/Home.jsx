@@ -21,7 +21,7 @@ const Home = () => {
       "https://www.newbalance.com/dw/image/v2/AAGI_PRD/on/demandware.static/-/Library-Sites-NBUS-NBCA/default/dw80b2310c/images/page-designer/2024/Jan/16344_Comp_A_Desktop.jpg",
     title: "NB550",
     price: "$19.99",
-    link: "http://localhost:3000/products",
+    link: "/category/unisex",
   };
   if(isLoading) return <h1>Loading.....</h1>
   return (
@@ -37,7 +37,7 @@ const Home = () => {
         })
       }
       </div>
-      <Link to="/search">
+      <Link to="/category/unisex">
         <button className="shop-all-button">Shop All</button>
       </Link>
       <div className="large-cards-container">

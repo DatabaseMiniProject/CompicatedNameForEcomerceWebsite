@@ -16,6 +16,7 @@
 }
 
 .links {
+  margin-left: 300px;
   display: flex;
   align-items: center;
   justify-content: space-between;
@@ -35,9 +36,8 @@
 .search-wrapper {
   display: flex;
   align-items: center;
-  background-color: #fff;
   padding: 5px;
-  border: 1px solid #ccc;
+  /* border: 1px solid #ccc; */
   margin-right: 0px;
 }
 

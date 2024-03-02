@@ -1,18 +1,15 @@
 // import Dropdown from "./Dropdown";
 import { Link, useNavigate } from "react-router-dom";
 import "../assets/styles/Header.css";
-import { useContext, useEffect } from "react";
+import { useContext } from "react";
 import AuthContext from "../Api/AuthProvider";
 // Icons
 import { SlBasketLoaded } from "react-icons/sl";
-import { CiSearch } from "react-icons/ci";
+// import { CiSearch } from "react-icons/ci";
 
 const Header = () => {
   const navigate = useNavigate();
   const { user,setUser } = useContext(AuthContext);
-  useEffect(()=>{
-    if(user.isAuthenticated===false) navigate('/')
-  },[navigate,user])
   return (
     <div className="header">
       <div className="icon">
@@ -74,14 +71,14 @@ const Header = () => {
         </Link>
       </div>
       <div className="search-wrapper">
-        <input type="text" placeholder="Search" className="search-input" />
+        {/* <input type="text" placeholder="Search" className="search-input" />
         <Link to="/search">
           <CiSearch className="search-icon" />
-        </Link>
+        </Link> */}
       </div>
       <div className="auth-links">
         {user.isAuthenticated ? (
-          <Link className="login-link" onClick={()=>setUser({isAuthenticated:false,id:0})}>Logout</Link>
+          <Link className="login-link" onClick={()=>{setUser({isAuthenticated:false});navigate('/') }}>Logout</Link>
         ) : (
           <>
             <Link to="/login" className="login-link">

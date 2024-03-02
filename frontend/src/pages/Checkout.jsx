@@ -2,9 +2,11 @@ import React, { useContext, useState } from "react";
 import "../assets/styles/Checkout.css"; // Import the CSS for checkout page
 import axios from "axios";
 import AuthContext from "../Api/AuthProvider";
+import CartContext from "../Api/CartContext";
 
 const Checkout = () => {
   const {user}=useContext(AuthContext)
+  const {cartItems}=useContext(CartContext)
   const [formData, setFormData] = useState({
     firstName: "",
     lastName: "",
@@ -15,7 +17,10 @@ const Checkout = () => {
     shippingOption: "UPS Ground",
     paymentMethod: "Visa",
   });
-
+  let sum=0;
+for(let i=0;i<cartItems.length;i++){
+  sum+=Number(cartItems[i].total_price)
+}
   const handleChange = (e) => {
     const { name, value, type, checked } = e.target;
     setFormData((prevData) => ({
@@ -137,16 +142,19 @@ const Checkout = () => {
           <h3>Order Summary</h3>
           <div className="order-summary-items">
             {/* Render order summary items here */}
-            Example:
             <div className="order-summary-item">
-              <span>New Balance NB Patch Logo Crew 3 Pairs, LAS33763WM</span>
-              <span>$15.99</span>
+              {cartItems.map((item,index)=>{
+                return<div>
+                <div>{item.product_name} {item.product_size}</div>
+              <div>Qty:{item.qty} ${item.total_price}</div>
+                </div>
+              })}
             </div>
           </div>
           {/* Shipping cost, tax, total */}
           <div className="order-summary-subtotal">
             <div>Subtotal</div>
-            <div>$15.99</div>
+            <div>${sum}</div>
           </div>
           <div className="order-summary-shipping">
             <div>Shipping: UPS Ground (2-5 days)</div>
@@ -158,7 +166,7 @@ const Checkout = () => {
           </div>
           <div className="order-summary-total">
             <div>Order Total</div>
-            <div>$25.94</div>
+            <div>${sum+9.95}</div>
           </div>
           <div className="order-summary-payments">
             <div>4 payments of $6.49 with</div>

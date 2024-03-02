@@ -1,16 +1,16 @@
-import { Link } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import "../assets/styles/Section.css";
 
 function Section(props) {
+  const navigate = useNavigate();
   const { image, title, price, link } = props.product;
 
   function handleClick() {
-    window.location.href = link;
+    navigate(link);
   }
 
   return (
     <div className="product-section">
-      <Link to="/products">
         <div className="image-container">
           <img src={image} alt={title} className="product-image" />
 
@@ -24,7 +24,6 @@ function Section(props) {
             <p className="product-price">{price}</p>
           </div>
         </div>
-      </Link>
     </div>
   );
 }

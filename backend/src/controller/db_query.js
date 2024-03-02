@@ -49,7 +49,7 @@ const getItemsByCategory = async (categoryName) => {
     const db = await db_pool.connect();
     let qry, res;
       qry =
-        "select * from products_table,image_table it,filter_category_table,category_table as ct where it.product_id=products_table.product_id and products_table.product_id=filter_category_table.product_id and filter_category_table.parent_category_id=ct.category_id and ct.category_name=$1";
+        "(select * from products_table,image_table it,filter_category_table,category_table as ct where it.product_id=products_table.product_id and products_table.product_id=filter_category_table.product_id and filter_category_table.parent_category_id=ct.category_id and ct.category_name=$1)union(select * from products_table,image_table it,filter_category_table,category_table as ct where it.product_id=products_table.product_id and products_table.product_id=filter_category_table.product_id and filter_category_table.parent_category_id=ct.category_id and ct.category_name='unisex')";
       res = await db.query(qry, [categoryName]);
     db.release();
     return res.rows;
@@ -77,7 +77,7 @@ const getImages = async (itemName) => {
   try {
     const db = await db_pool.connect();
     const imgQry =
-      "select it.image1,it.image2,it.image3 from image_table it,products_table pt where pt.product_id=it.product_id and pt.product_name=$1";
+      "select it.image1,it.image2,it.image3,it.image4 from image_table it,products_table pt where pt.product_id=it.product_id and pt.product_name=$1";
     const prod_images = await db.query(imgQry, [itemName]);
     const images = [];
     db.release();
@@ -149,7 +149,7 @@ const fetchNewItems = async () => {
   try {
     const db = await db_pool.connect();
     const qry =
-      "select product_id from (select distinct product_id,max(restock_date) from size_table group by product_id limit 3) as subQuery;";
+      " SELECT DISTINCT product_id, MAX(restock_date) AS restock_date FROM size_table GROUP BY product_id ORDER BY restock_date DESC;";
     const res = await db.query(qry);
     let latest = [];
     const qry1 =
