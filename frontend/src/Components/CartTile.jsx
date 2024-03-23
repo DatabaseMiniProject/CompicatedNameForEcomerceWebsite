@@ -1,10 +1,13 @@
 import axios from "axios";
 import "../assets/styles/CartTile.css";
+import { useContext } from "react";
+import AuthContext from "../Api/AuthProvider";
 // import sockImage from "../assets/Images/socks_test.jpeg";
 function CartTile({handleDeleteItem,item}) {
   const {product_name,product_size,qty,total_price,image1} = item;
-  const handleClick = (e) =>{
-    axios.delete(`http://localhost:4000/account/cart/B/${product_name}/${product_size}`).then(res=>{
+  const {user}=useContext(AuthContext)
+  const handleClick = () =>{
+    axios.delete(`http://localhost:4000/account/cart/${user.id}/${product_name}/${product_size}`).then(res=>{
       if(!(res.data.pid===undefined&&res.data.product_size)){
         handleDeleteItem(res.data.pid,res.data.product_size)
       }

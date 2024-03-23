@@ -180,12 +180,11 @@ const getUserId = async (name) => {
 
 const deleteItems = async (id, product_name, product_size) => {
   try {
-    const uid = await getUserId(id)
   const pid = await getProdId(product_name)
     const db = await db_pool.connect();
     const qry =
       "delete from cart_table where user_id=$1 and product_id=$2 and product_size=$3";
-    const res = await db.query(qry, [uid, pid, product_size]);
+    const res = await db.query(qry, [id, pid, product_size]);
     db.release();
     if (res.rowCount === 1) return {pid,product_size};
   } catch (err) {

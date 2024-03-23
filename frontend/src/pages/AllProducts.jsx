@@ -13,7 +13,6 @@ import Header from "../Components/Header";
 import Footer from "../Components/Footer";
 import { Link } from "react-router-dom";
 function Men({category}) {
-  const [showFilter, setShowFilter] = useState(false);
   const [isLoading,setIsLoading]=useState(true);
   const [items,setItems] = useState([])
   const cName = category.charAt(0).toUpperCase()+category.substring(1,);
@@ -57,39 +56,15 @@ function Men({category}) {
       </div>
       {/* This houses the sort by bar, filter and the shoe list */}
       <div className="filter_category_product">
-        <div className={showFilter ? "filter_div" : "hidden_filter"}>
-          <h1>Filters</h1>
-          <div>
-            <h1>Filter 1</h1>
-            <h1>Filter 2</h1>
-            <h1>Filter 3</h1>
-            <h1>Filter 4</h1>
-            <h1>Filter 5</h1>
-            <h1>Filter 6</h1>
-            <h1>Filter 7</h1>
-          </div>
-        </div>
-        <div className={showFilter ? "sort_by_container" : "expanded_sort_by"}>
+        <div className="expanded_sort_by">
           <div>
             <span className="sort_container_span">
               <h1 className="Category__count">{cName}</h1>
               <p>({items.length})</p>
             </span>
-            {/* <button
-              className="toggle_filter"
-              onClick={() => setShowFilter((showFilter) => !showFilter)}
-              type="button"
-            >
-              show filter
-            </button> */}
-            {/* <select className="sort_by">
-              <option>New</option>
-              <option>prize high to low</option>
-              <option>price low to high</option>
-            </select> */}
           </div>
         </div>
-        <div className={showFilter ? "product_container" : "expanded_products"}>
+        <div className={"expanded_products"}>
           <div>
            {items.map((item,ind)=>{
             const prod = {link:"/products/"+item.product_name, image:item.image1,  title:item.product_name, price:item.product_cost, category:item.category_name}
